@@ -883,7 +883,9 @@ body {
   .hero-content {
     grid-template-columns: 1fr 400px;
     text-align: left;
+    /* margin-top: 130px; */
   }
+
   
   .hero-text {
     text-align: left;
@@ -913,7 +915,9 @@ body {
   
   .hero-title {
     font-size: 3.5rem;
+     margin-top: 130px;
   }
+
 }
 
 @media (min-width: 1024px) {
@@ -936,10 +940,58 @@ body {
   .section-title {
     font-size: 3.5rem;
   }
+
+
 }
 
 @media (min-width: 1200px) {
   .container {
     padding: 0 3rem;
   }
+
+
+  
+ 
+ 
+}
+
+@media (max-width:760px) {
+   .hero-image-wrapper{
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+
+.hero-buttons{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width:90%;
+}
+
+.scroll-indicator{
+  background-color:var(--border);
+  border-radius: 10px;
+  padding:5px;
+  margin-right: 3rem;
+}
+
+.hero-image-icon{
+  display: none;
+}
+
+.hero{
+  margin: auto;
+}
+
+.contact-grid {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.social-link{
+  margin-bottom: 20px;
+}
 }

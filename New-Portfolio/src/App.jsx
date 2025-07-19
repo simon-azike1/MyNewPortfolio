@@ -26,7 +26,8 @@ import {
   ChevronDown,
   Youtube,
   Facebook,
-  Instagram
+  Instagram,
+  Italic
 } from 'lucide-react'
 
 
@@ -166,7 +167,7 @@ const handleSubmit = (e) => {
             animate={{ opacity: 1, x: 0 }}
             className="nav-logo"
           >
-            Azike Simon
+          simon.A
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -227,8 +228,8 @@ const handleSubmit = (e) => {
             transition={{ duration: 0.8 }}
             className="hero-text"
           >
-            <h1 className="hero-title">
-              Hi, I'm <span className="hero-title-accent">Azike Simon</span>
+            <h1 className="hero-title" style={{marginTop:"5rem"}}>
+              Hi, I'm <span className="hero-title-accent"> simon.A</span>
             </h1>
             <p className="hero-subtitle">
               Software Engineer & Web Developer
@@ -278,7 +279,7 @@ const handleSubmit = (e) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hero-image-container"
           >
-            <div className="hero-image-wrapper">
+            <div className="hero-image-wrapper"    >
               <div className="hero-image">
                 <img 
                   src={profileMain} 
@@ -331,8 +332,7 @@ const handleSubmit = (e) => {
                 <div className="about-image">
                   <img 
                     src={profileAbout} 
-                    alt="Azike Simon - Professional" 
-                  />
+                    alt="Azike Simon - Professional" />
                 </div>
                 <div className="about-image-icon">
                   <User size={24} />
@@ -558,7 +558,8 @@ const handleSubmit = (e) => {
 
  {/* Contact Section */}
 <section id="contact" className="section">
-  <div className="container">
+  <div className="contact-center">
+ <div className="container">
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -681,6 +682,7 @@ const handleSubmit = (e) => {
         </form>
       </motion.div>
     </div>
+  </div>
   </div>
 </section>
 
