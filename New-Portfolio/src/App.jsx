@@ -167,7 +167,7 @@ const handleSubmit = (e) => {
             animate={{ opacity: 1, x: 0 }}
             className="nav-logo"
           >
-          simon.A
+          simon.A 
           </motion.div>
 
           {/* Desktop Navigation */}

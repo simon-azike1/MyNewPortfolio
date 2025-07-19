@@ -994,4 +994,16 @@ body {
 .social-link{
   margin-bottom: 20px;
 }
+
+.hero-subtitle{
+  display: none;
+}
+
+.hero-title-accent{
+    padding: 1rem;
+}
+
+.scroll-indicator{
+  display: none;
+}
 }
