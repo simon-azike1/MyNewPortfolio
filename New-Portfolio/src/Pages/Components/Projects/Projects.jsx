@@ -1,0 +1,116 @@
+import React from 'react';
+import image1 from '@/assets/Images/barber1.png';
+import image2 from '@/assets/Images/movieMania.png';
+import image3 from '@/assets/Images/TheRecipeBook.png';
+import image4 from '@/assets/Images/DeHireVentures.png';
+import tributePageImage from '@/assets/Images/tributes.png';
+import blogSiteImage from '@/assets/Images/blogPage.png';
+import { motion } from 'framer-motion';
+import { Code, Github, ExternalLink } from 'lucide-react'; 
+
+
+function Projects() {
+  const projects = [
+    {
+      title: "Barber Booking App",
+      description:
+        "An easy-to-use platform for customers to book grooming sessions, showcasing clean UI and responsive design.",
+      image: image1,
+      live: "https://barber-shop-web-app-mhma.vercel.app/",
+      github: "https://github.com/simon-azike1/barberShopWebApp",
+    },
+    {
+      title: "MovieMania",
+      description:
+        "A movie database app using APIs to fetch and display movie details. Features search, filtering, and modern UI.",
+      image: image2,
+      live: "https://movie-mania-drab-six.vercel.app/",
+      github: "https://github.com/samzik234/MovieMania",
+    },
+    {
+      title: "Recipe Book",
+      description:
+        "A collection of recipes with category filters, ingredients, and steps. Built using vanilla JS and responsive CSS.",
+      image: image3,
+      live: "https://therecipebook-liard.vercel.app/",
+      github: "https://github.com/simon-azike1/THERECIPEBOOK",
+    },
+    {
+      title: "DeHire Ventures",
+      description:
+        "Static homepage for a logistics company, highlighting professional branding and clean layout design.",
+      image: image4,
+      live: "https://hrms-client-self.vercel.app/",
+      github: "https://github.com/samzik234/HRMS",
+    },
+    {
+      title: "Tribute Page",
+      description:
+        "A tribute webpage dedicated to a historical figure. Simple, semantic HTML structure with CSS styling.",
+      image: tributePageImage,
+      live: "https://tribute-home-page.vercel.app/",
+      github: "https://github.com/samzik234/TributeHomePage",
+    },
+    {
+      title: "Blog Website",
+      description:
+        "A simple blog layout created with HTML and CSS. Demonstrates understanding of modern layouts and typography.",
+      image: blogSiteImage,
+      live: "https://blog-page-sh5d.vercel.app/",
+      github: "https://github.com/simon-azike1/Blog-Page",
+    },
+  ];
+
+  return (
+    <section className="projects-section"  id="projects">
+      <h2 className="section-title">Featured Projects</h2>
+      <p className= "section-description" style={{textAlign:"center", marginBottom:"3rem"}}>
+Explore a curated collection of my recent projects that demonstrate a range of   skills from frontend design to full-stack development.  
+        
+      </p>
+      <div className="projects-grid">
+        {projects.map((project) => (
+          <motion.div
+            className="project-card"
+            key={project.title}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              onError={(e) => (e.target.src = '/fallback.jpg')}
+              className="project-image"
+            />
+            <div className="project-content">
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <div className="project-links">
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View live site for ${project.title}`}
+                >
+                  <ExternalLink size={20} /> Live
+                </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View source code for ${project.title}`}
+                >
+                  <Github size={20} /> Code
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default Projects;
