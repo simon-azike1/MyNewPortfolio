@@ -11,8 +11,7 @@ const Skill = () => {
     { name: 'Express', level: 50, color: 'skill-bar-node' },
     { name: 'React', level: 80, color: 'skill-bar-react' },
     { name: 'Node.js', level: 75, color: 'skill-bar-node' },
-    { name: 'Git', level: 85, color: 'skill-bar-git' },
-    { name: 'GitHub', level: 85, color: 'skill-bar-git' },
+    { name: 'Git and GitHub', level: 85, color: 'skill-bar-git' },
     { name: 'ElasticSearch', level: 75, color: 'skill-bar-git' },
     { name: 'Linux Administraion', level: 85, color: 'skill-bar-git' }
 
