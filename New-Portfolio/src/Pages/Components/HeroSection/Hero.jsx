@@ -178,7 +178,7 @@ const Hero = () => {
             <h3 className="journey-title">My Journey</h3>
             <hr style={{ background: "gray", padding: "1px", marginBottom: "9px", border: "none", width: "100%" }} />
             <p className="journey-text">
-           I discovered my passion for coding shortly after starting Cardiff Metropolitan University on August 3rd, 2022. Coming from a high school background in Electrical and Electronics, programming quickly became more than a skill , it’s now a craft I enjoy, constantly learning and creating solutions that make an impact.
+           I discovered my passion for coding shortly after starting <b style={{color:"white"}}>Cardiff Metropolitan University</b> on  August 3rd, 2022. Coming from a high school background in Electrical and Electronics, programming quickly became more than a skill , it’s now a craft I enjoy, constantly learning and creating solutions that make an impact.
             </p>
             <hr style={{ background: "gray", padding: "1px", marginBottom: "9px", border: "none", width: "100%" }} />
           </motion.div>
