@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { User, Mail, Phone, MapPin, Code, ChevronDown } from 'lucide-react';
 import profileAbout from '@/assets/Images/profile-about.jpg';
-import profileMain from '@/assets/Images/profile-main.jpg'; 
+import profileMain2 from '@/assets/Images/profile-main2.png'; 
 
 
 
@@ -81,7 +81,7 @@ const Hero = () => {
             <div className="hero-image-wrapper"    >
               <div className="hero-image">
                 <img 
-                  src={profileMain} 
+                  src={profileMain2} 
                   alt="Azike Simon" 
                 />
               </div>
