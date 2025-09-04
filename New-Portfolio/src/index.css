@@ -667,6 +667,7 @@ body {
 
 .project-links a {
   display: flex;
+  margin-top: 15px;
   align-items: center;
   gap: 0.4rem;
   padding: 0.5rem 1rem;

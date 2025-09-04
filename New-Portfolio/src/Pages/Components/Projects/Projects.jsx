@@ -22,13 +22,14 @@ function Projects() {
     },
     
     {
-      title: "Recipe Book",
+      title: "TheRecipeBook Web App",
       description:
         "A collection of recipes with category filters, ingredients, and steps. Built using vanilla JS and responsive CSS.",
       image: image3,
       live: "https://therecipebook-liard.vercel.app/",
       github: "https://github.com/simon-azike1/THERECIPEBOOK",
     },
+    
 
      {
       title: "Mecel Life",
@@ -38,20 +39,21 @@ function Projects() {
       github: "https://github.com/simon-azike1/Mercel-Life",
     },
     {
-      title: "DeHire Ventures",
-      description:
-        "Static homepage for a logistics company, highlighting professional branding and clean layout design.",
-      image: image4,
-      live: "https://hrms-client-self.vercel.app/",
-      github: "https://github.com/samzik234/HRMS",
-    },
-    {
       title: "Product Management App",
       description:"A React application to manage products with features like add, view, search, and delete.  Designed for smooth user experience and easy inventory tracking.",
       image: image5,
       live: "https://product-management-app-kl4b.vercel.app/",
       github: "https://github.com/simon-azike1/product-management-app",
     },
+    {
+      title: "DeHireVentures",
+      description:
+        "Dynamic web application for a logistics company, featuring professional branding, a clean layout, and a recruitment management system",
+      image: image4,
+      live: "https://hrms-client-self.vercel.app/",
+      github: "https://github.com/samzik234/HRMS",
+    },
+    
     {
       title: "Blog Website",
       description:

@@ -177,8 +177,8 @@ const Hero = () => {
           >
             <h3 className="journey-title">My Journey</h3>
             <hr style={{ background: "gray", padding: "1px", marginBottom: "9px", border: "none", width: "100%" }} />
-            <p className="journey-text" style={{ textAlign: "justify" }}>
-              My journey started on August 3rd, 2022, few weeks before my admission into Cardiff Metropolitan Unitversity, and since then, coding has become more than just a skill , it’s something I truly enjoy. Along the way, I’ve developed solid technical expertise and thrive in Agile environments, always eager to learn, grow, and make a real impact through technology.
+            <p className="journey-text">
+           I discovered my passion for coding shortly after starting Cardiff Metropolitan University on August 3rd, 2022. Coming from a high school background in Electrical and Electronics, programming quickly became more than a skill , it’s now a craft I enjoy, constantly learning and creating solutions that make an impact.
             </p>
             <hr style={{ background: "gray", padding: "1px", marginBottom: "9px", border: "none", width: "100%" }} />
           </motion.div>

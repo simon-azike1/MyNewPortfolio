@@ -48,7 +48,7 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           className="nav-logo"
         >
-          Simon Azike
+          <a href="/"> Simon Azike</a>
         </motion.div>
 
         {/* Desktop Navigation */}
