@@ -3,7 +3,8 @@ import image1 from '@/assets/Images/barber1.png';
 import image2 from '@/assets/Images/movieMania.png';
 import image3 from '@/assets/Images/TheRecipeBook.png';
 import image4 from '@/assets/Images/DeHireVentures.png';
-import tributePageImage from '@/assets/Images/tributes.png';
+import image5 from '@/assets/Images/productM.png';
+import image6 from '@/assets/Images/mercelLife.png';
 import blogSiteImage from '@/assets/Images/blogPage.png';
 import { motion } from 'framer-motion';
 import { Code, Github, ExternalLink } from 'lucide-react'; 
@@ -44,12 +45,18 @@ function Projects() {
       github: "https://github.com/samzik234/HRMS",
     },
     {
-      title: "Tribute Page",
-      description:
-        "A tribute webpage dedicated to a historical figure. Simple, semantic HTML structure with CSS styling.",
-      image: tributePageImage,
-      live: "https://tribute-home-page.vercel.app/",
-      github: "https://github.com/samzik234/TributeHomePage",
+      title: "Product Management App",
+      description:"A React application to manage products with features like add, view, search, and delete.Designed for smooth user experience and easy inventory tracking.",
+      image: image5,
+      live: "https://product-management-app-kl4b.vercel.app/",
+      github: "https://github.com/simon-azike1/product-management-app",
+    },
+    {
+      title: "Mecel Life",
+      description:"Mercel Life is a modern, responsive portfolio website for UX/UI designer built with React and Tailwind CSS.g.",
+      image: image6,
+      live: "https://mercel-life-9gdc.vercel.app/",
+      github: "https://github.com/simon-azike1/Mercel-Life",
     },
     {
       title: "Blog Website",
