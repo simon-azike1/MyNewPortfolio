@@ -15,9 +15,9 @@ import image1 from '@/assets/Images/baberShop.png';
 import image2 from '@/assets/Images/movieMania.png';
 import image3 from '@/assets/Images/TheRecipeBook.png';
 import image4 from '@/assets/Images/DeHireVentures.png';
-import image5 from '@/assets/Images/productM.png';
-import image6 from '@/assets/Images/mercelLife2.png';
+import image6 from '@/assets/Images/MercelLife2.png';
 import image10 from '@/assets/Images/UtilApp.png';
+import image5 from '@/assets/Images/productM.png';
 import image11 from '@/assets/Images/ChetroApp.png';
 import image12 from '@/assets/Images/YACSN.png';
 
