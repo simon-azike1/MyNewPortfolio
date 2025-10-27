@@ -91,7 +91,7 @@ const Footer = () => {
                 <a href="#home" className="footer-brand">
                   <div className="footer-logo">
                     <img 
-                      src="./src/assets/Images/BuildLabs.png" 
+                      src="./assets/Images/BuildLabs.png" 
                       alt="BuildLabs Logo" 
                       className="footer-logo-img"
                     />
