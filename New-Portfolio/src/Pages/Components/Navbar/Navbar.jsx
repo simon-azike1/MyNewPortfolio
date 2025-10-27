@@ -29,7 +29,6 @@ const Navbar = () => {
     { name: 'Twitter', icon: Twitter, url: 'https://www.instagram.com/simonazike155/', color: '#1da1f2' }
   ];
 
-  // Scroll tracking
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -54,7 +53,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scroll
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -64,7 +62,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  // Resume download
   const handleResumeDownload = () => {
     const resumeUrl = '/Azike_Simon_FrontEnd_Developer.pdf';
     const link = document.createElement('a');
@@ -75,7 +72,6 @@ const Navbar = () => {
     document.body.removeChild(link);
   };
 
-  // Handle click outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && !event.target.closest('.nav-container')) {
@@ -87,7 +83,6 @@ const Navbar = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
 
-  // Prevent body scroll when open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'unset';
     return () => (document.body.style.overflow = 'unset');
@@ -146,9 +141,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Desktop Actions */}
+          {/* 💫 Enhanced Social Links + Resume */}
           <div className="nav-actions desktop">
-            <div className="nav-social">
+            <div className="nav-social flex items-center gap-4">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -157,12 +152,27 @@ const Navbar = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="social-link"
-                    whileHover={{ scale: 1.1, color: social.color }}
+                    className="relative flex items-center justify-center p-2 rounded-full transition-all duration-300"
+                    whileHover={{
+                      scale: 1.25,
+                      y: -3,
+                      color: social.color,
+                      textShadow: `0 0 8px ${social.color}`,
+                    }}
                     whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     title={social.name}
                   >
-                    <Icon size={18} />
+                    <motion.div
+                      className="p-2 rounded-full"
+                      whileHover={{
+                        boxShadow: `0 0 15px 2px ${social.color}80`,
+                        backgroundColor: `${social.color}15`,
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Icon size={18} />
+                    </motion.div>
                   </motion.a>
                 );
               })}
@@ -224,7 +234,6 @@ const Navbar = () => {
               className="mobile-menu"
             >
               <div className="mobile-menu-content">
-                {/* Mobile Nav */}
                 <div className="mobile-nav-items">
                   {navItems.map((item, index) => (
                     <motion.button
