@@ -1,155 +1,31 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Code, 
-  Github, 
-  ExternalLink, 
-  Eye, 
-  Star, 
-  Calendar,
-  Tag,
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Github,
+  ExternalLink,
 } from 'lucide-react';
-
-// Import images
-import image1 from '@/assets/Images/baberShop.png';
-import image2 from '@/assets/Images/movieMania.png';
-import image3 from '@/assets/Images/TheRecipeBook.png';
-import image4 from '@/assets/Images/DeHireVentures.png';
-import image6 from '@/assets/Images/MercelLife2.png';
-import image10 from '@/assets/Images/UtilApp.png';
-import image5 from '@/assets/Images/productM.png';
-import image11 from '@/assets/Images/ChetroApp.png';
-import image12 from '@/assets/Images/YACSN.png';
+import { projectsAPI } from '../../../services/api';
 
 const Projects = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "YACSN",
-      description:
-        "YACSN is a modern, fully responsive corporate website developed with WordPress for York Air Conditioning's official representative in Nigeria. Designed to strengthen brand presence, improve user engagement, and showcase products and dealer information with a clean, professional interface.",
-      image: image12,
-      live: "https://yacsn.com/",
-      github: "https://github.com/simon-azike1",
-      category: "WordPress",
-      technologies: ["WordPress", "HTML", "CSS", "JavaScript", "PHP"],
-      featured: true,
-      year: "2024",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      title: "Barber Booking App",
-      description:
-        "A full-stack web app for booking grooming sessions and managing appointments online. Built with React, Node.js, and MongoDB for smooth, responsive performance.",
-      image: image1,
-      live: "https://barber-shop-web-app-mhma.vercel.app/",
-      github: "https://github.com/simon-azike1/barberShopWebApp",
-      category: "Full Stack",
-      technologies: ["React", "Node.js", "MongoDB", "CSS"],
-      featured: true,
-      year: "2024",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      title: "Mercel Life",
-      description:
-        "A modern and responsive portfolio website for a UX/UI designer, built with React and Tailwind CSS to showcase projects and design work beautifully.",
-      image: image6,
-      live: "https://mercel-life.vercel.app/",
-      github: "https://github.com/simon-azike1/Mercel-Life",
-      category: "Frontend",
-      technologies: ["React", "Tailwind CSS", "Framer Motion"],
-      featured: false,
-      year: "2025",
-      status: "Completed",
-    },
-    {
-      id: 4,
-      title: "The Recipe Book",
-      description:
-        "A web app that displays categorized recipes with ingredients and steps. Built using Vanilla JavaScript and responsive CSS.",
-      image: image3,
-      live: "https://therecipebook-liard.vercel.app/",
-      github: "https://github.com/simon-azike1/THERECIPEBOOK",
-      category: "Frontend",
-      technologies: ["JavaScript", "CSS", "HTML", "API"],
-      featured: true,
-      year: "2023",
-      status: "Completed",
-    },
-    {
-      id: 5,
-      title: "Chetro",
-      description:
-        "Chetro is a task management app that helps users organize and categorize daily activities efficiently for better productivity.",
-      image: image11,
-      live: "https://task-management-app-omega-flax.vercel.app/",
-      github: "https://github.com/simon-azike1/Blog-Page",
-      category: "Frontend",
-      technologies: ["HTML", "CSS", "JavaScript"],
-      featured: false,
-      year: "2025",
-      status: "Completed",
-    },
-    {
-      id: 6,
-      title: "Util",
-      description:
-        "Util is a house utility management system that automates budgeting, expense tracking, and contributions for shared apartments. Built from personal experience managing utilities manually.",
-      image: image10,
-      live: "https://house-utility-app.vercel.app/",
-      github: "https://github.com/simon-azike1/HouseUtility-App",
-      category: "Full Stack",
-      technologies: ["React", "API", "CSS", "JavaScript"],
-      featured: true,
-      year: "2025",
-      status: "Completed",
-    },
-    {
-      id: 7,
-      title: "DeHire Ventures",
-      description:
-        "A dynamic web application for a logistics company featuring recruitment management and modern branding built with React and MongoDB.",
-      image: image4,
-      live: "https://hrms-client-self.vercel.app/",
-      github: "https://github.com/samzik234/HRMS",
-      category: "Full Stack",
-      technologies: ["React", "Node.js", "Express", "MongoDB"],
-      featured: true,
-      year: "2022",
-      status: "Completed",
-    },
-    {
-      id: 8,
-      title: "Product Management App",
-      description:
-        "A React-based inventory management system with product addition, viewing, searching, and deletion features.",
-      image: image5,
-      live: "https://product-management-app-kl4b.vercel.app/",
-      github: "https://github.com/simon-azike1/product-management-app",
-      category: "Full Stack",
-      technologies: ["React", "Firebase", "CSS", "JavaScript"],
-      featured: true,
-      year: "2024",
-      status: "Completed",
-    },
-    {
-      id: 9,
-      title: "MovieMania",
-      description:
-        "A movie database app that fetches and displays movie details via API, with search and filtering options in a clean UI.",
-      image: image2,
-      live: "https://movie-mania-drab-six.vercel.app/",
-      github: "https://github.com/samzik234/MovieMania",
-      category: "Frontend",
-      technologies: ["HTML", "CSS", "JavaScript"],
-      featured: true,
-      year: "2023",
-      status: "Completed",
-    },
-  ];
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      setLoading(true);
+      const data = await projectsAPI.getAll();
+      setProjects(data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -169,160 +45,196 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="projects-section" aria-label="Portfolio Projects">
-      <div className="projects-container">
+    <section id="projects" className="py-24 bg-gray-50" aria-label="Portfolio Projects">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.header
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="projects-header"
+          className="text-center mb-16"
         >
-          <div className="section-badge">
-            <Code size={16} aria-hidden="true" />
-            Portfolio
-          </div>
-          <h2 className="section-title">
-            Featured <span className="title-highlight">Projects</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-dark mb-4">
+            Selected <span className="text-primary">Work</span>
           </h2>
-          <p className="section-subtitle">
-            Explore a curated selection of my web development projects — from front-end design to full-stack systems.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            A curated selection of projects showcasing web development expertise across frontend and full-stack solutions.
           </p>
         </motion.header>
 
         {/* Projects */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="projects-grid"
-        >
-          {projects.map((project) => (
-            <motion.article
-              key={project.id}
-              variants={itemVariants}
-              className={`project-card ${project.featured ? "featured" : ""}`}
-            >
-              <div className="project-image-container">
-                <img
-                  src={project.image}
-                  alt={`${project.title} project preview`}
-                  className="project-image"
-                  loading="lazy"
-                />
-                <div className="project-overlay">
-                  <div className="project-actions">
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-action-btn primary"
-                      aria-label={`View ${project.title} live`}
-                    >
-                      <ExternalLink size={18} />
-                    </a>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-action-btn secondary"
-                      aria-label={`View ${project.title} source code`}
-                    >
-                      <Github size={18} />
-                    </a>
+        {loading ? (
+          <div className="text-center py-12 text-gray-500">Loading projects...</div>
+        ) : projects.length === 0 ? (
+          <div className="text-center py-12 text-gray-500">No projects available yet.</div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {projects.map((project) => (
+              <motion.article
+                key={project._id}
+                variants={itemVariants}
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="relative overflow-hidden aspect-video">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} project preview`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        aria-label={`View ${project.title} live`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink size={18} />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        aria-label={`View ${project.title} source code`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Github size={18} />
+                      </a>
+                    )}
                   </div>
                 </div>
 
-                <div className="project-badges">
+              <div className="p-6 space-y-4">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="px-3 py-1 bg-blue-50 text-primary rounded-full font-medium">{project.category}</span>
                   {project.featured && (
-                    <div className="project-badge featured">
-                      <Star size={12} />
-                      Featured
-                    </div>
+                    <span className="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full font-medium">Featured</span>
                   )}
-                  <div className="project-badge status">{project.status}</div>
-                </div>
-              </div>
-
-              <div className="project-content">
-                <div className="project-meta">
-                  <div className="project-category">
-                    <Tag size={12} />
-                    {project.category}
-                  </div>
-                  <div className="project-year">
-                    <Calendar size={12} />
-                    {project.year}
-                  </div>
                 </div>
 
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
+                <h3 className="text-xl font-bold text-dark">{project.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{project.description.substring(0, 120)}...</p>
 
-                <div className="project-technologies">
-                  {project.technologies.map((tech, index) => (
-                    <span key={index} className="tech-tag">
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.slice(0, 3).map((tech, index) => (
+                    <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium">
                       {tech}
                     </span>
                   ))}
-                </div>
-
-                <div className="project-links">
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link primary"
-                  >
-                    <Eye size={16} />
-                    Live Demo
-                  </a>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link secondary"
-                  >
-                    <Github size={16} />
-                    Source Code
-                  </a>
+                  {project.technologies.length > 3 && (
+                    <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium">+{project.technologies.length - 3}</span>
+                  )}
                 </div>
               </div>
             </motion.article>
           ))}
-        </motion.div>
+          </motion.div>
+        )}
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="projects-stats"
-        >
-          <div className="stat-item">
-            <span className="stat-number">{projects.length}</span>
-            <span className="stat-label">Total Projects</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">
-              {projects.filter((p) => p.featured).length}
-            </span>
-            <span className="stat-label">Featured Works</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">
-              {new Set(projects.flatMap((p) => p.technologies)).size}
-            </span>
-            <span className="stat-label">Technologies Used</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">100%</span>
-            <span className="stat-label">Completion Rate</span>
-          </div>
-        </motion.div>
+        {/* Case Study Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-dark/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, y: 50 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 50 }}
+                className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  className="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-2xl text-gray-600 hover:text-dark transition-colors z-10"
+                  onClick={() => setSelectedProject(null)}
+                  aria-label="Close project details"
+                >
+                  ✕
+                </button>
+
+                <div className="aspect-video overflow-hidden rounded-t-2xl">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="p-8 space-y-6">
+                  <div>
+                    <h3 className="text-3xl font-bold text-dark mb-2">{selectedProject.title}</h3>
+                    <div className="flex items-center gap-2 text-gray-500">
+                      <span className="px-3 py-1 bg-blue-50 text-primary rounded-full text-sm font-medium">{selectedProject.category}</span>
+                      {selectedProject.featured && (
+                        <>
+                          <span>•</span>
+                          <span className="text-yellow-600">Featured</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="text-xl font-bold text-dark">Overview</h4>
+                    <p className="text-gray-600 leading-relaxed">{selectedProject.description}</p>
+
+                    <h4 className="text-xl font-bold text-dark pt-4">Technologies</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologies.map((tech, index) => (
+                        <span key={index} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-4 pt-6">
+                      {selectedProject.liveUrl && (
+                        <a
+                          href={selectedProject.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-primary"
+                        >
+                          <ExternalLink size={18} />
+                          View Live Site
+                        </a>
+                      )}
+                      {selectedProject.githubUrl && (
+                        <a
+                          href={selectedProject.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-outline"
+                      >
+                        <Github size={18} />
+                        View Code
+                      </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

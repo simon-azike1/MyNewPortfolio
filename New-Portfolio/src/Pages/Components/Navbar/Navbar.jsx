@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu,
@@ -11,9 +12,16 @@ import {
 } from 'lucide-react';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Hide navbar on admin pages
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
 
   const navItems = [
     { id: 'home', name: 'Home' },
@@ -54,10 +62,23 @@ const Navbar = () => {
   }, []);
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offsetTop = element.offsetTop - 80;
-      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    // If not on home page, navigate to home first
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offsetTop = element.offsetTop - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offsetTop = element.offsetTop - 80;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
     }
     setIsOpen(false);
   };
@@ -113,114 +134,113 @@ const Navbar = () => {
         variants={navVariants}
         initial="hidden"
         animate="visible"
-        className={`nav ${isScrolled ? 'nav-scrolled' : ''}`}
+        className={`nav-container fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'
+        }`}
       >
-        <div className="nav-container">
-          {/* Logo */}
-          <motion.div
-            className="nav-logo"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="logo-text">SimZik</span>
-          </motion.div>
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <motion.div
+              className="cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('home')}
+            >
+              <span className="text-2xl font-bold text-primary">SimZik</span>
+            </motion.div>
 
-          {/* Desktop Nav */}
-          <div className="nav-menu desktop">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`nav-button ${activeSection === item.id ? 'active' : ''}`}
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                {item.name}
-              </motion.button>
-            ))}
-          </div>
-
-          {/* 💫 Enhanced Social Links + Resume */}
-          <div className="nav-actions desktop">
-            <div className="nav-social flex items-center gap-4">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative flex items-center justify-center p-2 rounded-full transition-all duration-300"
-                    whileHover={{
-                      scale: 1.25,
-                      y: -3,
-                      color: social.color,
-                      textShadow: `0 0 8px ${social.color}`,
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    title={social.name}
-                  >
-                    <motion.div
-                      className="p-2 rounded-full"
-                      whileHover={{
-                        boxShadow: `0 0 15px 2px ${social.color}80`,
-                        backgroundColor: `${social.color}15`,
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Icon size={18} />
-                    </motion.div>
-                  </motion.a>
-                );
-              })}
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`font-medium transition-colors ${
+                    activeSection === item.id
+                      ? 'text-primary'
+                      : 'text-gray-700 hover:text-primary'
+                  }`}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  {item.name}
+                </motion.button>
+              ))}
             </div>
 
+            {/* Desktop Actions */}
+            <div className="hidden lg:flex items-center gap-6">
+              <div className="flex items-center gap-4">
+                {socialLinks.slice(0, 2).map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <motion.a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-primary transition-colors"
+                      whileHover={{ scale: 1.2, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      title={social.name}
+                    >
+                      <Icon size={20} />
+                    </motion.a>
+                  );
+                })}
+              </div>
+
+              <motion.button
+                onClick={handleResumeDownload}
+                className="btn btn-primary"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download size={16} />
+                Resume
+              </motion.button>
+            </div>
+
+            {/* Mobile Menu Button */}
             <motion.button
-              onClick={handleResumeDownload}
-              className="btn btn-primary resume-btn"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="md:hidden w-10 h-10 flex items-center justify-center text-dark relative z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(!isOpen);
+              }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label="Toggle mobile menu"
+              type="button"
             >
-              <Download size={16} />
-              Resume
+              <AnimatePresence mode="wait">
+                {isOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X size={24} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu size={24} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <motion.button
-            className="mobile-menu-button"
-            onClick={() => setIsOpen(!isOpen)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Toggle mobile menu"
-          >
-            <AnimatePresence mode="wait">
-              {isOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X size={24} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu size={24} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
         </div>
 
         {/* Mobile Menu */}
@@ -231,10 +251,10 @@ const Navbar = () => {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="mobile-menu"
+              className="md:hidden bg-white border-t border-gray-100"
             >
-              <div className="mobile-menu-content">
-                <div className="mobile-nav-items">
+              <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+                <div className="space-y-4">
                   {navItems.map((item, index) => (
                     <motion.button
                       key={item.id}
@@ -243,20 +263,27 @@ const Navbar = () => {
                       initial="hidden"
                       animate="visible"
                       onClick={() => scrollToSection(item.id)}
-                      className={`mobile-menu-item ${activeSection === item.id ? 'active' : ''}`}
+                      className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-colors relative ${
+                        activeSection === item.id
+                          ? 'bg-blue-50 text-primary'
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
                     >
                       <span>{item.name}</span>
                       {activeSection === item.id && (
-                        <motion.div className="active-indicator" layoutId="mobileActiveIndicator" />
+                        <motion.div
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r"
+                          layoutId="mobileActiveIndicator"
+                        />
                       )}
                     </motion.button>
                   ))}
                 </div>
 
                 {/* Mobile Social */}
-                <div className="mobile-social">
-                  <span className="mobile-social-title">Connect with me</span>
-                  <div className="mobile-social-links">
+                <div className="pt-6 border-t border-gray-100">
+                  <span className="text-sm font-medium text-gray-500 mb-4 block">Connect with me</span>
+                  <div className="flex flex-col gap-3">
                     {socialLinks.map((social, index) => {
                       const Icon = social.icon;
                       return (
@@ -265,15 +292,15 @@ const Navbar = () => {
                           href={social.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mobile-social-link"
+                          className="flex items-center gap-3 px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 font-medium"
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: (navItems.length + index) * 0.1 }}
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                         >
                           <Icon size={20} />
-                          <span>{social.name}</span>
+                          <span className="flex-1">{social.name}</span>
                           <ExternalLink size={14} />
                         </motion.a>
                       );
@@ -284,7 +311,7 @@ const Navbar = () => {
                 {/* Mobile Resume */}
                 <motion.button
                   onClick={handleResumeDownload}
-                  className="btn btn-primary mobile-resume-btn"
+                  className="w-full btn btn-primary"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: (navItems.length + socialLinks.length) * 0.1 }}
@@ -304,7 +331,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="mobile-menu-overlay"
+            className="fixed inset-0 bg-dark/50 z-40 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

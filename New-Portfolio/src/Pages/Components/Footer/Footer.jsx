@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Heart, 
-  ArrowUp, 
-  Github, 
-  Linkedin, 
-  Twitter, 
+import {
+  Heart,
+  ArrowUp,
+  Github,
+  Linkedin,
+  Twitter,
   Mail,
   Code,
   Coffee,
@@ -13,8 +14,15 @@ import {
 } from 'lucide-react'
 
 const Footer = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [currentYear] = useState(new Date().getFullYear())
+
+  // Hide footer on admin pages
+  if (location.pathname.startsWith('/admin')) {
+    return null
+  }
 
   // Show scroll to top button when user scrolls down
   useEffect(() => {
@@ -75,128 +83,122 @@ const Footer = () => {
   return (
     <>
       {/* Enhanced Footer */}
-      <footer className="footer-enhanced">
-        <div className="container">
-          <div className="footer-content">
+      <footer className="bg-dark text-white py-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="space-y-12">
             {/* Main Footer Content */}
-            <div className="footer-main">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {/* Brand Section */}
-              <motion.div 
-                className="footer-brand-section"
+              <motion.div
+                className="space-y-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <a href="#home" className="footer-brand">
-                  <div className="footer-logo">
-                    <img 
-                      src="./assets/Images/BuildLabs.png" 
-                      alt="BuildLabs Logo" 
-                      className="footer-logo-img"
-                    />
-                  </div>
-                  <span>BuildLabs</span>
+                <a href="#home" className="inline-flex items-center gap-3 group">
+                  <span className="text-2xl font-bold text-primary">SimZik</span>
                 </a>
-                <p className="footer-tagline">
-                  Crafting digital experiences with passion and precision. 
+                <p className="text-gray-400 leading-relaxed">
+                  Crafting digital experiences with passion and precision.
                   Transforming ideas into reality.
                 </p>
               </motion.div>
 
-              {/* Social Links */}
-              <motion.div 
-                className="footer-social"
+              {/* Quick Links */}
+              <motion.div
+                className="space-y-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    className="footer-social-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -4, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    aria-label={social.name}
-                    style={{ '--social-color': social.color }}
-                  >
-                    <social.icon size={20} />
-                  </motion.a>
-                ))}
+                <h3 className="font-bold text-lg">Quick Links</h3>
+                <div className="flex flex-col gap-2">
+                  {quickLinks.map((link, index) => (
+                    <motion.a
+                      key={link.name}
+                      href={link.href}
+                      className="text-gray-400 hover:text-primary transition-colors inline-block"
+                      whileHover={{ x: 4 }}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      viewport={{ once: true }}
+                    >
+                      {link.name}
+                    </motion.a>
+                  ))}
+                </div>
               </motion.div>
 
-              {/* Quick Links */}
-              <motion.div 
-                className="footer-links"
+              {/* Social Links */}
+              <motion.div
+                className="space-y-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                {quickLinks.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    className="footer-link"
-                    whileHover={{ x: 4 }}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    viewport={{ once: true }}
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
+                <h3 className="font-bold text-lg">Connect</h3>
+                <div className="flex gap-4">
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={social.name}
+                      href={social.url}
+                      className="w-10 h-10 bg-dark-light hover:bg-primary rounded-lg flex items-center justify-center transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -4, scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      aria-label={social.name}
+                    >
+                      <social.icon size={20} />
+                    </motion.a>
+                  ))}
+                </div>
               </motion.div>
             </div>
 
             {/* Footer Bottom */}
-            <motion.div 
-              className="footer-bottom"
+            <motion.div
+              className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <div className="footer-copyright">
-                <p>
-                  © {currentYear} BuildLabs. Built with Purpose
-                  <motion.span
-                    className="footer-heart"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1, repeat: Infinity }}
-                  >
-                    {/* <Heart size={16} fill="currentColor" /> */}
-                  </motion.span>{' '}
-                  
-                  {/* <Coffee size={16} className="inline" /> */}
+              <div className="flex items-center gap-4">
+                <p className="text-gray-400 text-sm text-center sm:text-left">
+                  © {currentYear} SimZik. Built with passion
                 </p>
+                <button
+                  onClick={() => navigate('/admin/login')}
+                  className="text-gray-600 hover:text-gray-400 text-xs transition-colors"
+                  aria-label="Admin"
+                >
+                  •
+                </button>
               </div>
 
-              <div className="footer-tech">
-                <span className="footer-tech-label">
-                  <Code size={14} /> Built with:
-                </span>
-                <div className="footer-tech-stack">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <Code size={14} />
+                <span>Built with:</span>
+                <div className="flex gap-2">
                   {techStack.map((tech, index) => (
                     <motion.span
                       key={tech.name}
-                      className="footer-tech-item"
+                      className="px-2 py-1 bg-dark-light rounded text-xs hover:bg-primary hover:text-white transition-colors cursor-default"
                       whileHover={{ y: -2 }}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <span className="tech-icon">{tech.icon}</span>
                       {tech.name}
                     </motion.span>
                   ))}
@@ -211,7 +213,7 @@ const Footer = () => {
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
-            className="scroll-to-top"
+            className="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-primary-dark transition-colors z-50"
             onClick={scrollToTop}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}

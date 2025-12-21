@@ -7,18 +7,9 @@ import {
   MapPin,
   Github,
   Linkedin,
-  Youtube,
-  Facebook,
-  Instagram,
   Send,
-  User,
-  MessageSquare,
   CheckCircle,
   AlertCircle,
-  Clock,
-  Calendar,
-  Globe,
-  Coffee,
   XCircle
 } from 'lucide-react';
 
@@ -70,72 +61,15 @@ const Contact = () => {
   const socialLinks = [
     {
       icon: Github,
-      name: 'GitHub (Main)',
+      name: 'GitHub',
       url: 'https://github.com/simon-azike1',
-      color: '#333',
-      username: '@simon-azike1',
-      ariaLabel: 'Visit my main GitHub profile'
-    },
-    {
-      icon: Github,
-      name: 'GitHub (Alt)',
-      url: 'https://github.com/samzik234?tab=repositories',
-      color: '#6e5494',
-      username: '@samzik234',
-      ariaLabel: 'Visit my alternative GitHub profile'
+      ariaLabel: 'Visit my GitHub profile'
     },
     {
       icon: Linkedin,
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/simonzik/',
-      color: '#0077B5',
-      username: '@simonzik',
       ariaLabel: 'Visit my LinkedIn profile'
-    },
-    {
-      icon: Youtube,
-      name: 'YouTube',
-      url: 'https://www.youtube.com/@SamzikTech',
-      color: '#FF0000',
-      username: '@SamzikTech',
-      ariaLabel: 'Visit my YouTube channel'
-    },
-    {
-      icon: Facebook,
-      name: 'Facebook',
-      url: 'https://web.facebook.com/simon.azike/',
-      color: '#1877F2',
-      username: '@simon.azike',
-      ariaLabel: 'Visit my Facebook profile'
-    },
-    {
-      icon: Instagram,
-      name: 'Instagram',
-      url: 'https://www.instagram.com/simonazike155/',
-      color: '#E4405F',
-      username: '@simon_azike',
-      ariaLabel: 'Visit my Instagram profile'
-    }
-  ];
-
-  const availabilityInfo = [
-    {
-      icon: Clock,
-      title: 'Response Time',
-      value: '< 24 hours',
-      description: 'I typically respond within a day'
-    },
-    {
-      icon: Calendar,
-      title: 'Availability',
-      value: 'Open to work',
-      description: 'Available for new opportunities'
-    },
-    {
-      icon: Globe,
-      title: 'Time Zone',
-      value: 'GMT+1 (Morocco)',
-      description: 'Flexible with global clients'
     }
   ];
 
@@ -255,39 +189,34 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact-section" aria-label="Contact Information">
-      <div className="contact-container">
+    <section id="contact" className="py-24 bg-gray-50" aria-label="Contact Information">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="contact-header"
+          className="text-center mb-16"
         >
-          <div className="section-badge">
-            <MessageSquare size={16} aria-hidden="true" />
-            Let's Connect
-          </div>
-          <h2 className="section-title">
-            Get In <span className="title-highlight">Touch</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-dark mb-4">
+            Get In <span className="text-primary">Touch</span>
           </h2>
-          <p className="section-subtitle">
-            I'm always open to discussing new opportunities and exciting projects.
-            Let's build something amazing together!
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Open to discussing new opportunities and project collaborations.
           </p>
         </motion.div>
 
-        <div className="contact-content">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="contact-info"
+            className="space-y-8"
           >
-            <div className="contact-cards">
+            <div className="space-y-4">
               {contactInfo.map((info) => {
                 const Icon = info.icon;
                 return (
@@ -297,83 +226,44 @@ const Contact = () => {
                     href={info.link}
                     target={info.link.startsWith('http') ? '_blank' : '_self'}
                     rel={info.link.startsWith('http') ? 'noopener noreferrer' : ''}
-                    className="contact-card"
+                    className="flex items-start gap-4 p-6 bg-white rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group"
                     whileHover={{ y: -5, scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     aria-label={info.ariaLabel}
                   >
-                    <div className="contact-card-icon" aria-hidden="true">
+                    <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true">
                       <Icon size={24} />
                     </div>
-                    <div className="contact-card-content">
-                      <h3 className="contact-card-title">{info.title}</h3>
-                      <p className="contact-card-value">{info.value}</p>
-                      <span className="contact-card-description">{info.description}</span>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-dark text-lg mb-1">{info.title}</h3>
+                      <p className="text-primary font-medium mb-1">{info.value}</p>
+                      <span className="text-sm text-gray-500">{info.description}</span>
                     </div>
                   </motion.a>
                 );
               })}
             </div>
 
-            {/* Availability Info */}
-            <motion.div variants={itemVariants} className="availability-section">
-              <h3 className="availability-title">
-                <Coffee size={20} aria-hidden="true" />
-                Availability & Response
-              </h3>
-              <div className="availability-grid">
-                {availabilityInfo.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.title} className="availability-item">
-                      <Icon size={16} className="availability-icon" aria-hidden="true" />
-                      <div className="availability-content">
-                        <span className="availability-label">{item.title}</span>
-                        <span className="availability-value">{item.value}</span>
-                        <span className="availability-desc">{item.description}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-
-            {/* Social Links - IMPROVED SECTION */}
-            <motion.div 
-              variants={itemVariants} 
-              className="social-links-section"
+            {/* Social Links */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-white rounded-xl p-6 border border-gray-100"
             >
-              <h3 className="social-links-title">
-                <Globe size={20} aria-hidden="true" />
-                Connect With Me
-              </h3>
-              <p className="social-links-subtitle">
-                Follow me on social media for updates and content
-              </p>
-              <div className="social-links-grid" role="navigation" aria-label="Social media links">
-                {socialLinks.map(({ icon: Icon, name, url, color, username, ariaLabel }) => (
+              <h3 className="text-xl font-bold text-dark mb-4">Connect</h3>
+              <div className="flex gap-4" role="navigation" aria-label="Social media links">
+                {socialLinks.map(({ icon: Icon, name, url, ariaLabel }) => (
                   <motion.a
-                    key={`$${name}-$$ {url}`}
+                    key={name}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="social-link-card"
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2 px-6 py-3 bg-gray-50 hover:bg-primary hover:text-white text-gray-700 rounded-lg transition-colors font-medium"
+                    whileHover={{ y: -3 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     aria-label={ariaLabel}
-                    title={name}
-                    style={{ '--icon-color': color }}
                   >
-                    <div 
-                      className="social-icon-wrapper"
-                    >
-                      <Icon size={22} />
-                    </div>
-                    <div className="social-info">
-                      <span className="social-name">{name}</span>
-                      <span className="social-username">{username}</span>
-                    </div>
+                    <Icon size={20} />
+                    <span>{name}</span>
                   </motion.a>
                 ))}
               </div>
@@ -386,30 +276,26 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="contact-form-section"
+            className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
           >
-            <div className="form-header">
-              <h3 className="form-title">
-                <Send size={20} aria-hidden="true" />
-                Send Me a Message
-              </h3>
-              <p className="form-subtitle">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-dark mb-2">Send a Message</h3>
+              <p className="text-gray-600">
                 Have a project in mind? Let's discuss how we can work together.
               </p>
             </div>
 
-            <form 
-              ref={form} 
-              onSubmit={handleSubmit} 
-              className="contact-form" 
+            <form
+              ref={form}
+              onSubmit={handleSubmit}
+              className="space-y-6"
               noValidate
               aria-label="Contact form"
             >
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="user_name" className="form-label">
-                    <User size={16} aria-hidden="true" />
-                    Full Name <span className="required" aria-label="required">*</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="user_name" className="block text-sm font-medium text-dark mb-2">
+                    Full Name <span className="text-red-500" aria-label="required">*</span>
                   </label>
                   <input
                     type="text"
@@ -417,7 +303,11 @@ const Contact = () => {
                     name="user_name"
                     value={formData.user_name}
                     onChange={handleInputChange}
-                    className={`form-input ${fieldErrors.user_name ? 'error' : ''}`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+                      fieldErrors.user_name
+                        ? 'border-red-300 focus:ring-red-200'
+                        : 'border-gray-300 focus:ring-primary focus:border-primary'
+                    }`}
                     placeholder="Enter your full name"
                     required
                     disabled={formStatus === 'loading'}
@@ -425,16 +315,15 @@ const Contact = () => {
                     aria-describedby={fieldErrors.user_name ? "user_name_error" : undefined}
                   />
                   {fieldErrors.user_name && (
-                    <span id="user_name_error" className="field-error" role="alert">
+                    <span id="user_name_error" className="text-sm text-red-600 mt-1 block" role="alert">
                       {fieldErrors.user_name}
                     </span>
                   )}
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="user_email" className="form-label">
-                    <Mail size={16} aria-hidden="true" />
-                    Email Address <span className="required" aria-label="required">*</span>
+                <div>
+                  <label htmlFor="user_email" className="block text-sm font-medium text-dark mb-2">
+                    Email Address <span className="text-red-500" aria-label="required">*</span>
                   </label>
                   <input
                     type="email"
@@ -442,7 +331,11 @@ const Contact = () => {
                     name="user_email"
                     value={formData.user_email}
                     onChange={handleInputChange}
-                    className={`form-input ${fieldErrors.user_email ? 'error' : ''}`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+                      fieldErrors.user_email
+                        ? 'border-red-300 focus:ring-red-200'
+                        : 'border-gray-300 focus:ring-primary focus:border-primary'
+                    }`}
                     placeholder="your.email@example.com"
                     required
                     disabled={formStatus === 'loading'}
@@ -450,24 +343,27 @@ const Contact = () => {
                     aria-describedby={fieldErrors.user_email ? "user_email_error" : undefined}
                   />
                   {fieldErrors.user_email && (
-                    <span id="user_email_error" className="field-error" role="alert">
+                    <span id="user_email_error" className="text-sm text-red-600 mt-1 block" role="alert">
                       {fieldErrors.user_email}
                     </span>
                   )}
                 </div>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="message" className="form-label">
-                  <MessageSquare size={16} aria-hidden="true" />
-                  Message <span className="required" aria-label="required">*</span>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
+                  Message <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  className={`form-textarea ${fieldErrors.message ? 'error' : ''}`}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none ${
+                    fieldErrors.message
+                      ? 'border-red-300 focus:ring-red-200'
+                      : 'border-gray-300 focus:ring-primary focus:border-primary'
+                  }`}
                   placeholder="Tell me about your project, ideas, or just say hello..."
                   rows="6"
                   required
@@ -476,18 +372,22 @@ const Contact = () => {
                   aria-describedby={fieldErrors.message ? "message_error" : undefined}
                 />
                 {fieldErrors.message && (
-                  <span id="message_error" className="field-error" role="alert">
+                  <span id="message_error" className="text-sm text-red-600 mt-1 block" role="alert">
                     {fieldErrors.message}
                   </span>
                 )}
-                <span className="character-count" aria-live="polite">
+                <span className="text-sm text-gray-500 mt-1 block" aria-live="polite">
                   {formData.message.length} characters
                 </span>
               </div>
 
               <motion.button
                 type="submit"
-                className={`form-submit ${formStatus}`}
+                className={`w-full btn ${
+                  formStatus === 'success' ? 'bg-green-500 hover:bg-green-600 text-white' :
+                  formStatus === 'error' ? 'bg-red-500 hover:bg-red-600 text-white' :
+                  'btn-primary'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
                 disabled={formStatus === 'loading'}
                 whileHover={{ scale: formStatus === 'loading' ? 1 : 1.02 }}
                 whileTap={{ scale: formStatus === 'loading' ? 1 : 0.98 }}
@@ -497,7 +397,7 @@ const Contact = () => {
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="loading-spinner"
+                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                     aria-hidden="true"
                   />
                 )}
@@ -521,18 +421,18 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="status-message success"
+                  className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3"
                   role="alert"
                   aria-live="polite"
                 >
-                  <CheckCircle size={20} aria-hidden="true" />
-                  <div className="status-content">
-                    <h4>Message sent successfully!</h4>
-                    <p>Thank you for reaching out. I'll get back to you soon.</p>
+                  <CheckCircle size={20} className="text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <div className="flex-1">
+                    <h4 className="font-bold text-green-900">Message sent successfully!</h4>
+                    <p className="text-sm text-green-700">Thank you for reaching out. I'll get back to you soon.</p>
                   </div>
                   <button
                     onClick={handleDismissMessage}
-                    className="dismiss-button"
+                    className="text-green-600 hover:text-green-800 transition-colors"
                     aria-label="Dismiss success message"
                   >
                     <XCircle size={18} />
@@ -545,20 +445,20 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="status-message error"
+                  className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
                   role="alert"
                   aria-live="assertive"
                 >
-                  <AlertCircle size={20} aria-hidden="true" />
-                  <div className="status-content">
-                    <h4>Something went wrong</h4>
-                    <p>
+                  <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <div className="flex-1">
+                    <h4 className="font-bold text-red-900">Something went wrong</h4>
+                    <p className="text-sm text-red-700">
                       {errorMessage || 'Please try again or contact me directly via email.'}
                     </p>
                   </div>
                   <button
                     onClick={handleDismissMessage}
-                    className="dismiss-button"
+                    className="text-red-600 hover:text-red-800 transition-colors"
                     aria-label="Dismiss error message"
                   >
                     <XCircle size={18} />
@@ -575,24 +475,20 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="contact-cta"
+          className="mt-16 bg-gradient-to-r from-primary to-primary-light rounded-2xl p-12 text-center text-white"
         >
-          <div className="cta-content">
-            <h3>Ready to start your project?</h3>
-            <p>Let's discuss your ideas and bring them to life together.</p>
-          </div>
-          <div className="cta-actions">
-            <motion.a
-              href="mailto:azikeshinye@gmail.com"
-              className="cta-button primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Send email directly to azikeshinye@gmail.com"
-            >
-              <Mail size={18} aria-hidden="true" />
-              Email Me Directly
-            </motion.a>
-          </div>
+          <h3 className="text-3xl font-bold mb-4">Ready to start your project?</h3>
+          <p className="text-lg mb-8 text-blue-100">Let's discuss your ideas and bring them to life together.</p>
+          <motion.a
+            href="mailto:azikeshinye@gmail.com"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Send email directly to azikeshinye@gmail.com"
+          >
+            <Mail size={18} aria-hidden="true" />
+            Email Me Directly
+          </motion.a>
         </motion.div>
       </div>
     </section>
