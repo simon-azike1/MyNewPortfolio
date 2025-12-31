@@ -57,3 +57,12 @@ export const authAPI = {
     return apiCall('/auth/login', 'POST', { email, password });
   },
 };
+
+// Testimonials API
+export const testimonialsAPI = {
+  getAll: () => apiCall('/testimonials'),
+  getById: (id) => apiCall(`/testimonials/${id}`),
+  create: (data) => apiCall('/testimonials', 'POST', data),
+  update: (id, data) => apiCall(`/testimonials/${id}`, 'PUT', data),
+  delete: (id) => apiCall(`/testimonials/${id}`, 'DELETE'),
+};
