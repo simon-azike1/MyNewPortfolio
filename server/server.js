@@ -54,8 +54,12 @@ app.use('/api/testimonials', testimonialRoutes);
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Catch all handler: send back index.html for client-side routing
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  } else {
+    next();
+  }
 });
 
 // Health check route
