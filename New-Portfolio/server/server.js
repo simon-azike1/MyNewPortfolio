@@ -1,13 +1,15 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDatabase = require('./config/database');
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.join(process.cwd(), '..', '.env') });
+import express from 'express';
+import cors from 'cors';
+import connectDatabase from './config/database.js';
 
 // Import routes
-const authRoutes = require('./routes/auth');
-const projectRoutes = require('./routes/projects');
-const skillRoutes = require('./routes/skills');
-const testimonialRoutes = require('./routes/testimonials');
+import authRoutes from './routes/auth.js';
+import projectRoutes from './routes/projects.js';
+import skillRoutes from './routes/skills.js';
+import testimonialRoutes from './routes/testimonials.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;

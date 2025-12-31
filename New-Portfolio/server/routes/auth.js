@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Admin from '../models/Admin.js';
+
 const router = express.Router();
-const Admin = require('../models/Admin');
 
 // POST /api/auth/login
 router.post('/login', async (req, res) => {
@@ -53,4 +54,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

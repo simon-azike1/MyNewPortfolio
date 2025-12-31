@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Testimonial from '../models/Testimonial.js';
+
 const router = express.Router();
-const Testimonial = require('../models/Testimonial');
 
 // Get all testimonials
 router.get('/', async (req, res) => {
@@ -74,4 +75,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

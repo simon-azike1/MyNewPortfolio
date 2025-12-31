@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const testimonialSchema = new mongoose.Schema({
   name: {
@@ -28,4 +28,4 @@ const testimonialSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Testimonial', testimonialSchema);
+export default mongoose.model('Testimonial', testimonialSchema);
