@@ -9,6 +9,12 @@ const apiCall = async (endpoint, method = 'GET', data = null) => {
     },
   };
 
+  // Add JWT token if available
+  const token = localStorage.getItem('adminToken');
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
+
   if (data) {
     options.body = JSON.stringify(data);
   }
@@ -45,13 +51,11 @@ export const skillsAPI = {
   delete: (id) => apiCall(`/skills/${id}`, 'DELETE'),
 };
 
-// Testimonials API
-export const testimonialsAPI = {
-  getAll: () => apiCall('/testimonials'),
-  getById: (id) => apiCall(`/testimonials/${id}`),
-  create: (data) => apiCall('/testimonials', 'POST', data),
-  update: (id, data) => apiCall(`/testimonials/${id}`, 'PUT', data),
-  delete: (id) => apiCall(`/testimonials/${id}`, 'DELETE'),
+// Auth API
+export const authAPI = {
+  login: async (email, password) => {
+    return apiCall('/auth/login', 'POST', { email, password });
+  },
 };
 
 // Auth API

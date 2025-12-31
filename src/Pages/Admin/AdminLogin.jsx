@@ -18,6 +18,7 @@ const AdminLogin = ({ onLogin }) => {
     try {
       const response = await authAPI.login(email, password);
       if (response.success) {
+        localStorage.setItem('adminToken', response.token);
         onLogin();
       } else {
         setError(response.message || 'Invalid email or password');

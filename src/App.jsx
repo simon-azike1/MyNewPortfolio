@@ -52,7 +52,10 @@ function App() {
           path="/admin/dashboard"
           element={
             <ProtectedAdminRoute>
-              <AdminDashboard onLogout={() => setIsAdminAuthenticated(false)} />
+              <AdminDashboard onLogout={() => {
+                localStorage.removeItem('adminToken');
+                setIsAdminAuthenticated(false);
+              }} />
             </ProtectedAdminRoute>
           }
         />
