@@ -57,8 +57,3 @@ export const authAPI = {
     return apiCall('/auth/login', 'POST', { email, password });
   },
 };
-
-// Auth API
-export const authAPI = {
-  login: (email, password) => apiCall('/auth/login', 'POST', { email, password }),
-};
