@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { skillsAPI } from '../../../services/api';
+import { skillsAPI } from '../../services/api';
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState('all');

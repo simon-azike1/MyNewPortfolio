@@ -4,7 +4,7 @@ import {
   Github,
   ExternalLink,
 } from 'lucide-react';
-import { projectsAPI } from '../../../services/api';
+import { projectsAPI } from '../../services/api';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
-import { testimonialsAPI } from '../../../services/api';
+import { testimonialsAPI } from '../../services/api';
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
