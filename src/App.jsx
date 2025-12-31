@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './Pages/Components/Navbar/Navbar';
-import Hero from './Pages/Components/HeroSection/Hero';
-import Skill from './Pages/Components/Skills/Skill';
-import Project from './Pages/Components/Projects/Projects';
-import Testimonials from './Pages/Components/Testimonials/Testimonials';
+import Navbar from './components/Navbar/Navbar';
+import Hero from './components/HeroSection/Hero';
+import Skill from './components/Skills/Skill';
+import Project from './components/Projects/Projects';
+import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './Pages/Contact/Contact';
-import Footer from './Pages/Components/Footer/Footer';
+import Footer from './components/Footer/Footer';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 

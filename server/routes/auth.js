@@ -1,4 +1,5 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import Admin from '../models/Admin.js';
 
 const router = express.Router();
@@ -37,9 +38,16 @@ router.post('/login', async (req, res) => {
     }
 
     // Authentication successful
+    const token = jwt.sign(
+      { email: admin.email, role: admin.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+
     res.json({
       success: true,
       message: 'Login successful',
+      token,
       admin: {
         email: admin.email,
         role: admin.role
@@ -55,3 +63,20 @@ router.post('/login', async (req, res) => {
 });
 
 export default router;
+
+// Middleware to verify JWT
+export const verifyAdmin = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.admin = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ success: false, message: 'Invalid token.' });
+  }
+};
