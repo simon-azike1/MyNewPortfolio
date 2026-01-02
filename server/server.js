@@ -29,8 +29,17 @@ app.use((req, res, next) => {
 });
 
 // CORS Middleware - Must be BEFORE routes
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'https://my-new-portfolio-hazel.vercel.app', // Vercel production
+  'https://my-new-portfolio-8zg5.vercel.app' // Alternative Vercel URL
+];
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   res.header('Access-Control-Allow-Credentials', 'true');
