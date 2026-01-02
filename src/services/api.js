@@ -1,7 +1,13 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // Generic API call handler
-const apiCall = async (endpoint, method = 'GET', data = null) => {
+const apiCall = async (
+  endpoint,
+  method = 'GET',
+  data = null,
+  requiresAuth = false
+) => {
   const options = {
     method,
     headers: {
@@ -9,10 +15,12 @@ const apiCall = async (endpoint, method = 'GET', data = null) => {
     },
   };
 
-  // Add JWT token if available
-  const token = localStorage.getItem('adminToken');
-  if (token) {
-    options.headers['Authorization'] = `Bearer ${token}`;
+  // Add JWT token ONLY when required
+  if (requiresAuth) {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      options.headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   if (data) {
@@ -33,36 +41,43 @@ const apiCall = async (endpoint, method = 'GET', data = null) => {
   }
 };
 
-// Projects API
+// ================= PUBLIC APIs =================
 export const projectsAPI = {
   getAll: () => apiCall('/projects'),
   getById: (id) => apiCall(`/projects/${id}`),
-  create: (data) => apiCall('/projects', 'POST', data),
-  update: (id, data) => apiCall(`/projects/${id}`, 'PUT', data),
-  delete: (id) => apiCall(`/projects/${id}`, 'DELETE'),
 };
 
-// Skills API
 export const skillsAPI = {
   getAll: () => apiCall('/skills'),
   getById: (id) => apiCall(`/skills/${id}`),
-  create: (data) => apiCall('/skills', 'POST', data),
-  update: (id, data) => apiCall(`/skills/${id}`, 'PUT', data),
-  delete: (id) => apiCall(`/skills/${id}`, 'DELETE'),
 };
 
-// Auth API
-export const authAPI = {
-  login: async (email, password) => {
-    return apiCall('/auth/login', 'POST', { email, password });
-  },
-};
-
-// Testimonials API
 export const testimonialsAPI = {
   getAll: () => apiCall('/testimonials'),
   getById: (id) => apiCall(`/testimonials/${id}`),
-  create: (data) => apiCall('/testimonials', 'POST', data),
-  update: (id, data) => apiCall(`/testimonials/${id}`, 'PUT', data),
-  delete: (id) => apiCall(`/testimonials/${id}`, 'DELETE'),
+};
+
+// ================= ADMIN APIs =================
+export const adminProjectsAPI = {
+  create: (data) => apiCall('/projects', 'POST', data, true),
+  update: (id, data) => apiCall(`/projects/${id}`, 'PUT', data, true),
+  delete: (id) => apiCall(`/projects/${id}`, 'DELETE', null, true),
+};
+
+export const adminSkillsAPI = {
+  create: (data) => apiCall('/skills', 'POST', data, true),
+  update: (id, data) => apiCall(`/skills/${id}`, 'PUT', data, true),
+  delete: (id) => apiCall(`/skills/${id}`, 'DELETE', null, true),
+};
+
+export const adminTestimonialsAPI = {
+  create: (data) => apiCall('/testimonials', 'POST', data, true),
+  update: (id, data) => apiCall(`/testimonials/${id}`, 'PUT', data, true),
+  delete: (id) =>
+    apiCall(`/testimonials/${id}`, 'DELETE', null, true),
+};
+
+export const authAPI = {
+  login: (email, password) =>
+    apiCall('/auth/login', 'POST', { email, password }),
 };
