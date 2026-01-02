@@ -14,7 +14,8 @@ import authRoutes from './routes/auth.js';
 import projectRoutes from './routes/projects.js';
 import skillRoutes from './routes/skills.js';
 import testimonialRoutes from './routes/testimonials.js';
-import { verifyAdmin } from './routes/auth.js';
+// Remove this import - no longer needed here
+// import { verifyAdmin } from './routes/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -54,11 +55,11 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// Routes - WITHOUT verifyAdmin here (it's applied per-route instead)
 app.use('/api/auth', authRoutes);
-app.use('/api/projects', verifyAdmin, projectRoutes);
-app.use('/api/skills', verifyAdmin, skillRoutes);
-app.use('/api/testimonials', verifyAdmin, testimonialRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('/api/testimonials', testimonialRoutes);
 
 // Serve static files from the React app build directory
 app.use(express.static(path.join(__dirname, '../dist')));
