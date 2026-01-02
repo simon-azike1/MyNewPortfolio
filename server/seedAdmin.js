@@ -1,6 +1,13 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const Admin = require('./models/Admin');
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+import Admin from './models/Admin.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI;
