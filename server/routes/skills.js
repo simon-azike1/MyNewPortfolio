@@ -1,9 +1,10 @@
 import express from 'express';
 import Skill from '../models/Skill.js';
+import { verifyAdmin } from './auth.js'; // Import the middleware
 
 const router = express.Router();
 
-// Get all skills
+// Get all skills (PUBLIC)
 router.get('/', async (req, res) => {
   try {
     const skills = await Skill.find().sort({ category: 1, percentage: -1 });
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get single skill
+// Get single skill (PUBLIC)
 router.get('/:id', async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
@@ -26,8 +27,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create skill
-router.post('/', async (req, res) => {
+// Create skill (PROTECTED)
+router.post('/', verifyAdmin, async (req, res) => {
   const skill = new Skill({
     name: req.body.name,
     category: req.body.category,
@@ -44,8 +45,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update skill
-router.put('/:id', async (req, res) => {
+// Update skill (PROTECTED)
+router.put('/:id', verifyAdmin, async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
     if (!skill) {
@@ -60,8 +61,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete skill
-router.delete('/:id', async (req, res) => {
+// Delete skill (PROTECTED)
+router.delete('/:id', verifyAdmin, async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
     if (!skill) {

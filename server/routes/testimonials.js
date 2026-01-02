@@ -1,9 +1,10 @@
 import express from 'express';
 import Testimonial from '../models/Testimonial.js';
+import { verifyAdmin } from './auth.js'; // Import the middleware
 
 const router = express.Router();
 
-// Get all testimonials
+// Get all testimonials (PUBLIC)
 router.get('/', async (req, res) => {
   try {
     const testimonials = await Testimonial.find().sort({ createdAt: -1 });
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get single testimonial
+// Get single testimonial (PUBLIC)
 router.get('/:id', async (req, res) => {
   try {
     const testimonial = await Testimonial.findById(req.params.id);
@@ -26,8 +27,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create testimonial
-router.post('/', async (req, res) => {
+// Create testimonial (PROTECTED)
+router.post('/', verifyAdmin, async (req, res) => {
   const testimonial = new Testimonial({
     name: req.body.name,
     role: req.body.role,
@@ -44,8 +45,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update testimonial
-router.put('/:id', async (req, res) => {
+// Update testimonial (PROTECTED)
+router.put('/:id', verifyAdmin, async (req, res) => {
   try {
     const testimonial = await Testimonial.findById(req.params.id);
     if (!testimonial) {
@@ -60,8 +61,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete testimonial
-router.delete('/:id', async (req, res) => {
+// Delete testimonial (PROTECTED)
+router.delete('/:id', verifyAdmin, async (req, res) => {
   try {
     const testimonial = await Testimonial.findById(req.params.id);
     if (!testimonial) {

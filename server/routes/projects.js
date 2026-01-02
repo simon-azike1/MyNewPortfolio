@@ -1,9 +1,10 @@
 import express from 'express';
 import Project from '../models/Project.js';
+import { verifyAdmin } from './auth.js'; // Import the middleware
 
 const router = express.Router();
 
-// Get all projects
+// Get all projects (PUBLIC)
 router.get('/', async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get single project
+// Get single project (PUBLIC)
 router.get('/:id', async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
@@ -26,8 +27,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create project
-router.post('/', async (req, res) => {
+// Create project (PROTECTED)
+router.post('/', verifyAdmin, async (req, res) => {
   const project = new Project({
     title: req.body.title,
     description: req.body.description,
@@ -47,8 +48,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update project
-router.put('/:id', async (req, res) => {
+// Update project (PROTECTED)
+router.put('/:id', verifyAdmin, async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
     if (!project) {
@@ -63,8 +64,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete project
-router.delete('/:id', async (req, res) => {
+// Delete project (PROTECTED)
+router.delete('/:id', verifyAdmin, async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
     if (!project) {
