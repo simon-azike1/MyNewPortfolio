@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
-import { skillsAPI } from '../../../services/api';
+import { skillsAPI, adminSkillsAPI } from '../../../services/api';
 
 const SkillsManager = () => {
   const [skills, setSkills] = useState([]);
@@ -48,7 +48,7 @@ const SkillsManager = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this skill?')) {
       try {
-        await skillsAPI.delete(id);
+        await adminSkillsAPI.delete(id);
         setSkills(skills.filter(s => s._id !== id));
       } catch (error) {
         console.error('Error deleting skill:', error);
@@ -69,10 +69,10 @@ const SkillsManager = () => {
 
     try {
       if (editingSkill) {
-        const updated = await skillsAPI.update(editingSkill._id, skillData);
+        const updated = await adminSkillsAPI.update(editingSkill._id, skillData);
         setSkills(skills.map(s => s._id === editingSkill._id ? updated : s));
       } else {
-        const newSkill = await skillsAPI.create(skillData);
+        const newSkill = await adminSkillsAPI.create(skillData);
         setSkills([...skills, newSkill]);
       }
 
@@ -141,41 +141,41 @@ const SkillsManager = () => {
               animate={{ opacity: 1, y: 0 }}
               className="bg-white rounded-xl shadow-sm p-6"
             >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-dark mb-2">{skill.name}</h3>
-                <div className="flex items-center gap-2 text-sm mb-2">
-                  <span className={`px-2 py-1 text-white rounded text-xs ${getLevelColor(skill.level)}`}>
-                    {skill.level}
-                  </span>
-                  <span className="text-gray-500">{skill.category}</span>
-                  <span className="text-gray-400">•</span>
-                  <span className="text-gray-500">{skill.experience}</span>
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-dark mb-2">{skill.name}</h3>
+                  <div className="flex items-center gap-2 text-sm mb-2">
+                    <span className={`px-2 py-1 text-white rounded text-xs ${getLevelColor(skill.level)}`}>
+                      {skill.level}
+                    </span>
+                    <span className="text-gray-500">{skill.category}</span>
+                    <span className="text-gray-400">•</span>
+                    <span className="text-gray-500">{skill.experience}</span>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(skill)}
+                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  >
+                    <Edit size={18} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(skill._id)}
+                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <Trash2 size={18} />
+                  </button>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleEdit(skill)}
-                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                >
-                  <Edit size={18} />
-                </button>
-                <button
-                  onClick={() => handleDelete(skill._id)}
-                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                >
-                  <Trash2 size={18} />
-                </button>
+              <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className={`absolute inset-y-0 left-0 ${getLevelColor(skill.level)} rounded-full`}
+                  style={{ width: `${skill.percentage}%` }}
+                />
               </div>
-            </div>
-            <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div
-                className={`absolute inset-y-0 left-0 ${getLevelColor(skill.level)} rounded-full`}
-                style={{ width: `${skill.percentage}%` }}
-              />
-            </div>
-            <p className="text-right text-sm text-gray-600 mt-1">{skill.percentage}%</p>
-          </motion.div>
+              <p className="text-right text-sm text-gray-600 mt-1">{skill.percentage}%</p>
+            </motion.div>
           ))
         )}
       </div>

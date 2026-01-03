@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X, ExternalLink, Github } from 'lucide-react';
-import { projectsAPI } from '../../../services/api';
+import { projectsAPI, adminProjectsAPI } from '../../../services/api';
 
 const ProjectsManager = () => {
   const [projects, setProjects] = useState([]);
@@ -55,7 +55,7 @@ const ProjectsManager = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
-        await projectsAPI.delete(id);
+        await adminProjectsAPI.delete(id);
         setProjects(projects.filter(p => p._id !== id));
       } catch (error) {
         console.error('Error deleting project:', error);
@@ -79,10 +79,10 @@ const ProjectsManager = () => {
 
     try {
       if (editingProject) {
-        const updated = await projectsAPI.update(editingProject._id, projectData);
+        const updated = await adminProjectsAPI.update(editingProject._id, projectData);
         setProjects(projects.map(p => p._id === editingProject._id ? updated : p));
       } else {
-        const newProject = await projectsAPI.create(projectData);
+        const newProject = await adminProjectsAPI.create(projectData);
         setProjects([...projects, newProject]);
       }
 

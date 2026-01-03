@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X, Quote } from 'lucide-react';
-import { testimonialsAPI } from '../../../services/api';
+import { testimonialsAPI, adminTestimonialsAPI } from '../../../services/api';
 
 const TestimonialsManager = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -46,7 +46,7 @@ const TestimonialsManager = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this testimonial?')) {
       try {
-        await testimonialsAPI.delete(id);
+        await adminTestimonialsAPI.delete(id);
         setTestimonials(testimonials.filter(t => t._id !== id));
       } catch (error) {
         console.error('Error deleting testimonial:', error);
@@ -66,10 +66,10 @@ const TestimonialsManager = () => {
 
     try {
       if (editingTestimonial) {
-        const updated = await testimonialsAPI.update(editingTestimonial._id, testimonialData);
+        const updated = await adminTestimonialsAPI.update(editingTestimonial._id, testimonialData);
         setTestimonials(testimonials.map(t => t._id === editingTestimonial._id ? updated : t));
       } else {
-        const newTestimonial = await testimonialsAPI.create(testimonialData);
+        const newTestimonial = await adminTestimonialsAPI.create(testimonialData);
         setTestimonials([...testimonials, newTestimonial]);
       }
 
@@ -144,24 +144,24 @@ const TestimonialsManager = () => {
                 </div>
               </div>
 
-            <p className="text-gray-600 mb-4 italic">"{testimonial.content}"</p>
+              <p className="text-gray-600 mb-4 italic">"{testimonial.content}"</p>
 
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold">
-                {testimonial.name.charAt(0)}
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold">
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-bold text-dark">{testimonial.name}</p>
+                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-bold text-dark">{testimonial.name}</p>
-                <p className="text-sm text-gray-500">{testimonial.role}</p>
-              </div>
-            </div>
 
-            <div className="flex gap-1 text-yellow-400">
-              {[...Array(testimonial.rating)].map((_, i) => (
-                <span key={i}>★</span>
-              ))}
-            </div>
-          </motion.div>
+              <div className="flex gap-1 text-yellow-400">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <span key={i}>★</span>
+                ))}
+              </div>
+            </motion.div>
           ))
         )}
       </div>
