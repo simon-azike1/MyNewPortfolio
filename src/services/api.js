@@ -8,6 +8,11 @@ const apiCall = async (
   data = null,
   requiresAuth = false
 ) => {
+  const url = `${API_BASE_URL}${endpoint}`;
+  console.log('🔍 API Call:', url); // ADD THIS
+  console.log('📦 Method:', method); // ADD THIS
+  console.log('🔐 Requires Auth:', requiresAuth); // ADD THIS
+  
   const options = {
     method,
     headers: {
@@ -28,7 +33,9 @@ const apiCall = async (
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+    const response = await fetch(url, options);
+    console.log('📥 Response status:', response.status); // ADD THIS
+    console.log('📄 Content-Type:', response.headers.get('content-type')); // ADD THIS
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -36,7 +43,7 @@ const apiCall = async (
 
     return await response.json();
   } catch (error) {
-    console.error('API call error:', error);
+    console.error('❌ API call error:', error);
     throw error;
   }
 };
@@ -73,8 +80,7 @@ export const adminSkillsAPI = {
 export const adminTestimonialsAPI = {
   create: (data) => apiCall('/testimonials', 'POST', data, true),
   update: (id, data) => apiCall(`/testimonials/${id}`, 'PUT', data, true),
-  delete: (id) =>
-    apiCall(`/testimonials/${id}`, 'DELETE', null, true),
+  delete: (id) => apiCall(`/testimonials/${id}`, 'DELETE', null, true),
 };
 
 export const authAPI = {
