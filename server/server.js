@@ -14,8 +14,6 @@ import authRoutes from './routes/auth.js';
 import projectRoutes from './routes/projects.js';
 import skillRoutes from './routes/skills.js';
 import testimonialRoutes from './routes/testimonials.js';
-// Remove this import - no longer needed here
-// import { verifyAdmin } from './routes/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,18 +27,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// CORS Middleware - Must be BEFORE routes
+// CORS Middleware - Updated to allow all Vercel deployments
 const allowedOrigins = [
   'http://localhost:5173', // Local development
-  'https://my-new-portfolio-hazel.vercel.app', // Vercel production
-  'https://my-new-portfolio-8zg5.vercel.app' // Alternative Vercel URL
+  'http://localhost:5174', // Alternative local port
 ];
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
+  
+  // Allow localhost or any vercel.app domain
+  if (allowedOrigins.includes(origin) || 
+      (origin && origin.endsWith('.vercel.app'))) {
     res.header('Access-Control-Allow-Origin', origin);
   }
+  
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   res.header('Access-Control-Allow-Credentials', 'true');
