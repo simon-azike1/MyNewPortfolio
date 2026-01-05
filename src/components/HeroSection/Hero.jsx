@@ -96,7 +96,7 @@ const Hero = () => {
                 </button>
 
                 <a
-                  href="/Azike_Simon_FrontEnd_Developer.pdf"
+                  href="/Azike_Simon_Software_Engineer.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline"

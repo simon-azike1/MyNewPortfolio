@@ -84,10 +84,10 @@ const Navbar = () => {
   };
 
   const handleResumeDownload = () => {
-    const resumeUrl = '/Azike_Simon_FrontEnd_Developer.pdf';
+    const resumeUrl = '/Azike_Simon_Software_Engineer.pdf';
     const link = document.createElement('a');
     link.href = resumeUrl;
-    link.download = 'Azike_Simon_FrontEnd_Developer.pdf';
+    link.download = '/Azike_Simon_Software_Engineer.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

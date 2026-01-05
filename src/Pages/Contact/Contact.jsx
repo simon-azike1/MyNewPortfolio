@@ -10,7 +10,8 @@ import {
   Send,
   CheckCircle,
   AlertCircle,
-  XCircle
+  XCircle,
+  Youtube
 } from 'lucide-react';
 
 // EmailJS Configuration (moved to constants for better maintainability)
@@ -70,6 +71,12 @@ const Contact = () => {
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/simonzik/',
       ariaLabel: 'Visit my LinkedIn profile'
+    },
+    {
+      icon: Youtube,
+      name: 'YouTube',
+      url: 'https://www.youtube.com/@SamzikTech',
+      ariaLabel: 'Visit my YouTube channel'
     }
   ];
 
@@ -485,8 +492,9 @@ const Contact = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Send email directly to azikeshinye@gmail.com"
+            target='_blank'
           >
-            <Mail size={18} aria-hidden="true" />
+            <Mail size={18} aria-hidden="true"/>
             Email Me Directly
           </motion.a>
         </motion.div>
