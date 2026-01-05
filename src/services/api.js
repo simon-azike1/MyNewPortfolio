@@ -9,9 +9,7 @@ const apiCall = async (
   requiresAuth = false
 ) => {
   const url = `${API_BASE_URL}${endpoint}`;
-  console.log('🔍 API Call:', url); // ADD THIS
-  console.log('📦 Method:', method); // ADD THIS
-  console.log('🔐 Requires Auth:', requiresAuth); // ADD THIS
+ 
   
   const options = {
     method,
@@ -34,8 +32,6 @@ const apiCall = async (
 
   try {
     const response = await fetch(url, options);
-    console.log('📥 Response status:', response.status); // ADD THIS
-    console.log('📄 Content-Type:', response.headers.get('content-type')); // ADD THIS
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
