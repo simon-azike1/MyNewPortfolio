@@ -1,0 +1,169 @@
+/* Root styles with smooth transitions */
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Mode (Default) */
+:root[data-theme='light'] {
+  /* Background colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  
+  /* Text colors */
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  
+  /* Accent colors - Elegant Purple/Indigo */
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-hover: #4f46e5;
+  
+  /* Border colors */
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+  
+  /* Shadow colors */
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.12);
+  
+  /* Card backgrounds */
+  --card-bg: #ffffff;
+  --card-hover: #f8fafc;
+  
+  /* Toggle button */
+  --toggle-bg: #ffffff;
+  
+  /* Code/pre backgrounds */
+  --code-bg: #f8f9fa;
+  --code-text: #e83e8c;
+}
+
+/* Dark Mode - Beautiful & Modern */
+:root[data-theme='dark'] {
+  /* Background colors - Rich darak tones */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  
+  /* Text colors - Crystal clear */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  
+  /* Accent colors - Elegant Purple with warmth */
+  --accent-primary: #4045da;
+  --accent-secondary: #303886;
+  --accent-hover: #19234b;
+  
+  /* Border colors - Subtle but visible */
+  --border-color: #334155;
+  --border-light: #1e293b;
+  
+  /* Shadow colors */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.5);
+  
+  /* Card backgrounds - Depth and dimension */
+  --card-bg: #1e293b;
+  --card-hover: #334155;
+  
+  /* Toggle button */
+  --toggle-bg: #1e293b;
+  
+  /* Code/pre backgrounds */
+  --code-bg: #0f172a;
+  --code-text: #f472b6;
+}
+
+/* Apply theme to body and common elements */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Common element styling with theme variables */
+a {
+  color: var(--accent-primary);
+  transition: color 0.3s ease;
+}
+
+/* a:hover {
+  color: var(--accent-hover);
+} */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* Card styling */
+.card, .project-card, .skill-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover, .project-card:hover, .skill-card:hover {
+  background-color: var(--card-hover);
+  transform: translateY(-4px);
+}
+
+/* Button styling */
+button, .btn {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+/* 
+button:hover, .btn:hover {
+  background-color: var(--accent-hover);
+} */
+
+/* Input styling */
+input, textarea, select {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+}
+
+/* Code blocks */
+code, pre {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--border-color);
+}
+
+/* Section backgrounds */
+section {
+  background-color: var(--bg-primary);
+}
+
+section:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
+
+/* Navigation */
+nav {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Footer */
+footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
