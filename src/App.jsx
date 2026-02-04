@@ -9,6 +9,8 @@ import Contact from './Pages/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
+import { ThemeProvider } from './context/ThemeContext';
+import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
@@ -32,38 +34,43 @@ function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        {/* Portfolio Routes */}
-        <Route path="/" element={<PortfolioPage />} />
+    <ThemeProvider>
+      {/* Theme Toggle Button - will appear on all pages */}
+      <ThemeToggle />
+      
+      <Router>
+        <Routes>
+          {/* Portfolio Routes */}
+          <Route path="/" element={<PortfolioPage />} />
 
-        {/* Admin Routes */}
-        <Route
-          path="/admin/login"
-          element={
-            isAdminAuthenticated ? (
-              <Navigate to="/admin/dashboard" replace />
-            ) : (
-              <AdminLogin onLogin={() => setIsAdminAuthenticated(true)} />
-            )
-          }
-        />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedAdminRoute>
-              <AdminDashboard onLogout={() => {
-                localStorage.removeItem('adminToken');
-                setIsAdminAuthenticated(false);
-              }} />
-            </ProtectedAdminRoute>
-          }
-        />
+          {/* Admin Routes */}
+          <Route
+            path="/admin/login"
+            element={
+              isAdminAuthenticated ? (
+                <Navigate to="/admin/dashboard" replace />
+              ) : (
+                <AdminLogin onLogin={() => setIsAdminAuthenticated(true)} />
+              )
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedAdminRoute>
+                <AdminDashboard onLogout={() => {
+                  localStorage.removeItem('adminToken');
+                  setIsAdminAuthenticated(false);
+                }} />
+              </ProtectedAdminRoute>
+            }
+          />
 
-        {/* Catch all - redirect to home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
+          {/* Catch all - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

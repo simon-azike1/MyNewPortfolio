@@ -45,7 +45,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-24 bg-white">
+    <section id="skills" className="py-24 bg-theme-bg-primary">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
         <motion.div
@@ -55,10 +55,10 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-dark mb-4">
-            Skills & <span className="text-primary">Technologies</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
+            Skills & <span className="text-theme-accent-primary">Technologies</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
             Technical expertise across frontend, backend, and development tools.
           </p>
         </motion.div>
@@ -71,8 +71,8 @@ const Skills = () => {
               onClick={() => setActiveCategory(category.id)}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                 activeCategory === category.id
-                  ? 'bg-primary text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-theme-accent-primary text-white shadow-lg'
+                  : 'bg-theme-bg-secondary text-theme-text-secondary hover:bg-theme-card-hover border border-theme'
               }`}
             >
               {category.name}
@@ -82,15 +82,15 @@ const Skills = () => {
 
         {/* Skills Grid */}
         {loading ? (
-          <div className="text-center py-12 text-gray-500">Loading skills...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">Loading skills...</div>
         ) : filteredSkills.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">No skills available yet.</div>
+          <div className="text-center py-12 text-theme-text-tertiary">No skills available yet.</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSkills.map((skill, index) => (
               <motion.div
                 key={skill._id}
-                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300"
+                className="bg-theme-card border border-theme rounded-xl p-6 hover:shadow-lg transition-shadow duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -98,19 +98,19 @@ const Skills = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-dark mb-2">{skill.name}</h3>
+                    <h3 className="text-xl font-bold text-theme-text-primary mb-2">{skill.name}</h3>
                     <div className="flex items-center gap-2 text-sm">
                       <span className="font-medium" style={{ color: getLevelColor(skill.level) }}>
                         {skill.level}
                       </span>
-                      <span className="text-gray-400">•</span>
-                      <span className="text-gray-500">{skill.experience}</span>
+                      <span className="text-theme-text-tertiary">•</span>
+                      <span className="text-theme-text-tertiary">{skill.experience}</span>
                     </div>
                   </div>
-                  <div className="text-2xl font-bold text-primary">{skill.percentage}%</div>
+                  <div className="text-2xl font-bold text-theme-accent-primary">{skill.percentage}%</div>
                 </div>
 
-                <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="relative h-2 bg-theme-bg-secondary rounded-full overflow-hidden">
                   <motion.div
                     className="absolute inset-y-0 left-0 rounded-full"
                     style={{

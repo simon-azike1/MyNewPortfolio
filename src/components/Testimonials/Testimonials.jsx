@@ -41,7 +41,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" className="py-24 bg-white" aria-label="Client Testimonials">
+    <section id="testimonials" className="py-24 bg-theme-bg-primary" aria-label="Client Testimonials">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.header
@@ -51,19 +51,19 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-dark mb-4">
-            Client <span className="text-primary">Feedback</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
+            Client <span className="text-theme-accent-primary">Feedback</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
             What clients say about working with me
           </p>
         </motion.header>
 
         {/* Testimonials Grid */}
         {loading ? (
-          <div className="text-center py-12 text-gray-500">Loading testimonials...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">Loading testimonials...</div>
         ) : testimonials.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">No testimonials available yet.</div>
+          <div className="text-center py-12 text-theme-text-tertiary">No testimonials available yet.</div>
         ) : (
           <motion.div
             variants={containerVariants}
@@ -76,19 +76,19 @@ const Testimonials = () => {
               <motion.article
                 key={testimonial._id}
                 variants={itemVariants}
-                className="bg-gray-50 rounded-xl p-8 space-y-6 hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+                className="bg-theme-card rounded-xl p-8 space-y-6 hover:shadow-lg transition-shadow duration-300 border border-theme"
                 whileHover={{ y: -5 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="text-primary">
+                <div className="text-theme-accent-primary">
                   <Quote size={32} aria-hidden="true" />
                 </div>
 
-                <p className="text-gray-600 leading-relaxed italic">"{testimonial.content}"</p>
+                <p className="text-theme-text-secondary leading-relaxed italic">"{testimonial.content}"</p>
 
                 <div className="pt-4">
-                  <h4 className="font-bold text-dark">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  <h4 className="font-bold text-theme-text-primary">{testimonial.name}</h4>
+                  <p className="text-sm text-theme-text-tertiary">{testimonial.role}</p>
                 </div>
 
                 <div className="flex gap-1 text-yellow-400 text-lg" aria-label={`${testimonial.rating} out of 5 stars`}>

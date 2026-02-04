@@ -25,3 +25,8 @@
     @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
   }
 }
+/* Quick Fix - Add to your index.css or App.css */
+nav button {
+  background: transparent;
+  border: none;
+}

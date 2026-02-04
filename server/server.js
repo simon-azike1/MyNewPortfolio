@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-dotenv.config({ path: path.join(process.cwd(), '..', '.env') });
+dotenv.config({ path: path.join(process.cwd(), '.', '.env') });
 import express from 'express';
 
 const __filename = fileURLToPath(import.meta.url);

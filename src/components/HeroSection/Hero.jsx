@@ -51,8 +51,8 @@ const Hero = () => {
   return (
     <>
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen bg-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-50"></div>
+      <section id="home" className="relative min-h-screen bg-theme-bg-primary overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-theme-bg-primary to-blue-50"></div>
 
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-24 pb-16">
           <motion.div
@@ -64,19 +64,19 @@ const Hero = () => {
             {/* Text Content */}
             <div className="space-y-8">
 
-              <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-dark leading-tight">
+              <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-theme-text-primary leading-tight">
               I'm{' '}
-                <span className="relative inline-block text-primary">
+                <span className="relative inline-block text-theme-accent-primary">
                   Simon Azike
-                  <div className="absolute bottom-2 left-0 w-full h-1 bg-primary-light"></div>
+                  <div className="absolute bottom-2 left-0 w-full h-1 bg-theme-accent-primary"></div>
                 </span>
               </motion.h1>
 
-              <motion.div variants={itemVariants} className="text-2xl sm:text-3xl font-medium text-gray-600">
+              <motion.div variants={itemVariants} className="text-2xl sm:text-3xl font-medium text-theme-text-secondary">
                 <span>Software Engineer</span>
               </motion.div>
 
-              <motion.p variants={itemVariants} className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+              <motion.p variants={itemVariants} className="text-lg text-theme-text-secondary leading-relaxed max-w-2xl">
                As a Software and Network Engineer, I build secure, efficient, and high-performing digital systems. My expertise spans HTML, CSS, JavaScript, React, and Elasticsearch and other Network technologies, enabling me to create solutions that connect seamless front-end experiences with strong technical infrastructure.
               </motion.p>
 
@@ -108,13 +108,13 @@ const Hero = () => {
 
               <motion.div variants={itemVariants} className="flex items-center gap-8 pt-4">
                 <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-primary">2+</span>
-                  <span className="text-sm text-gray-500">Years Experience</span>
+                  <span className="text-3xl font-bold text-theme-accent-primary">2+</span>
+                  <span className="text-sm text-theme-text-tertiary">Years Experience</span>
                 </div>
-                <div className="h-12 w-px bg-gray-300"></div>
+                <div className="h-12 w-px bg-theme-border"></div>
                 <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-primary">10+</span>
-                  <span className="text-sm text-gray-500">Projects Completed</span>
+                  <span className="text-3xl font-bold text-theme-accent-primary">10+</span>
+                  <span className="text-sm text-theme-text-tertiary">Projects Completed</span>
                 </div>
               </motion.div>
             </div>
@@ -142,7 +142,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 hover:text-primary transition-colors cursor-pointer"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-theme-text-tertiary hover:text-theme-accent-primary transition-colors cursor-pointer"
             onClick={() => scrollToSection("about")}
           >
             <motion.div
@@ -157,7 +157,7 @@ const Hero = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 bg-gray-50">
+      <section id="about" className="py-24 bg-theme-bg-secondary">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -166,8 +166,8 @@ const Hero = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-dark">
-              About <span className="text-primary">Me</span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary">
+              About <span className="text-theme-accent-primary">Me</span>
             </h2>
           </motion.div>
 
@@ -178,30 +178,30 @@ const Hero = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-lg p-8"
+              className="bg-theme-card rounded-2xl shadow-lg p-8 border border-theme"
             >
               <div className="relative w-48 h-48 mx-auto mb-6">
                 <img src={profileAbout} alt="Simon Azike - Professional" className="w-full h-full object-cover rounded-full" />
-                <div className="absolute bottom-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                <div className="absolute bottom-2 right-2 w-6 h-6 bg-theme-card rounded-full flex items-center justify-center">
                   <div className="w-4 h-4 bg-green-500 rounded-full"></div>
                 </div>
               </div>
 
               <div className="text-center space-y-4">
-                <h3 className="text-2xl font-bold text-dark">Simon Azike</h3>
-                <p className="text-lg text-gray-600">Frontend Developer</p>
+                <h3 className="text-2xl font-bold text-theme-text-primary">Simon Azike</h3>
+                <p className="text-lg text-theme-text-secondary">Frontend Developer</p>
 
                 <div className="space-y-3 pt-4">
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <Mail size={16} className="text-primary" />
+                  <div className="flex items-center gap-3 text-theme-text-secondary">
+                    <Mail size={16} className="text-theme-accent-primary" />
                     <span>azikeshinye@gmail.com</span>
                   </div>
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <Phone size={16} className="text-primary" />
+                  <div className="flex items-center gap-3 text-theme-text-secondary">
+                    <Phone size={16} className="text-theme-accent-primary" />
                     <span>+212 751-780853</span>
                   </div>
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <MapPin size={16} className="text-primary" />
+                  <div className="flex items-center gap-3 text-theme-text-secondary">
+                    <MapPin size={16} className="text-theme-accent-primary" />
                     <span>Sale Rabat, Morocco</span>
                   </div>
                 </div>
@@ -214,24 +214,24 @@ const Hero = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-lg p-8"
+              className="bg-theme-card rounded-2xl shadow-lg p-8 border border-theme"
             >
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-dark mb-2">My Journey</h3>
-                  <div className="w-20 h-1 bg-primary"></div>
+                  <h3 className="text-2xl font-bold text-theme-text-primary mb-2">My Journey</h3>
+                  <div className="w-20 h-1 bg-theme-accent-primary"></div>
                 </div>
 
-                <div className="space-y-4 text-gray-600 leading-relaxed">
+                <div className="space-y-4 text-theme-text-secondary leading-relaxed">
                   <p>
                     I discovered my passion for coding shortly after starting{' '}
-                    <span className="text-primary font-medium">Cardiff Metropolitan University</span> on August 3rd, 2022.
+                    <span className="text-theme-accent-primary font-medium">Cardiff Metropolitan University</span> on August 3rd, 2022.
                     Coming from a high school background in Electrical and Electronics, programming
                     quickly became more than a skill.
                   </p>
 
-                  <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-primary">
-                    <p className="text-gray-700">
+                  <div className="bg-blue-50 dark:bg-theme-bg-tertiary p-4 rounded-lg border-l-4 border-theme-accent-primary">
+                    <p className="text-theme-text-secondary">
                       It's now a craft I enjoy, constantly learning and creating solutions
                       that make an impact.
                     </p>
@@ -240,16 +240,16 @@ const Hero = () => {
 
                 <div className="grid grid-cols-3 gap-4 pt-4">
                   <div className="text-center">
-                    <span className="text-2xl font-bold text-primary block">2022</span>
-                    <span className="text-sm text-gray-500">Started Journey</span>
+                    <span className="text-2xl font-bold text-theme-accent-primary block">2022</span>
+                    <span className="text-sm text-theme-text-tertiary">Started Journey</span>
                   </div>
                   <div className="text-center">
-                    <span className="text-2xl font-bold text-primary block">20+</span>
-                    <span className="text-sm text-gray-500">Skills Learned</span>
+                    <span className="text-2xl font-bold text-theme-accent-primary block">20+</span>
+                    <span className="text-sm text-theme-text-tertiary">Skills Learned</span>
                   </div>
                   <div className="text-center">
-                    <span className="text-2xl font-bold text-primary block">∞</span>
-                    <span className="text-sm text-gray-500">Passion Level</span>
+                    <span className="text-2xl font-bold text-theme-accent-primary block">∞</span>
+                    <span className="text-sm text-theme-text-tertiary">Passion Level</span>
                   </div>
                 </div>
               </div>

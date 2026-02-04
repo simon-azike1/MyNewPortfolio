@@ -196,7 +196,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gray-50" aria-label="Contact Information">
+    <section id="contact" className="py-24 bg-theme-bg-secondary" aria-label="Contact Information">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.div
@@ -206,10 +206,10 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-dark mb-4">
-            Get In <span className="text-primary">Touch</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
+            Get In <span className="text-theme-accent-primary">Touch</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
             Open to discussing new opportunities and project collaborations.
           </p>
         </motion.div>
@@ -233,18 +233,18 @@ const Contact = () => {
                     href={info.link}
                     target={info.link.startsWith('http') ? '_blank' : '_self'}
                     rel={info.link.startsWith('http') ? 'noopener noreferrer' : ''}
-                    className="flex items-start gap-4 p-6 bg-white rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100 group"
+                    className="flex items-start gap-4 p-6 bg-theme-card rounded-xl hover:shadow-lg transition-shadow duration-300 border border-theme group"
                     whileHover={{ y: -5, scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     aria-label={info.ariaLabel}
                   >
-                    <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true">
+                    <div className="w-12 h-12 bg-blue-50 dark:bg-theme-bg-tertiary rounded-lg flex items-center justify-center text-theme-accent-primary group-hover:bg-theme-accent-primary group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true">
                       <Icon size={24} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-bold text-dark text-lg mb-1">{info.title}</h3>
-                      <p className="text-primary font-medium mb-1">{info.value}</p>
-                      <span className="text-sm text-gray-500">{info.description}</span>
+                      <h3 className="font-bold text-theme-text-primary text-lg mb-1">{info.title}</h3>
+                      <p className="text-theme-accent-primary font-medium mb-1">{info.value}</p>
+                      <span className="text-sm text-theme-text-tertiary">{info.description}</span>
                     </div>
                   </motion.a>
                 );
@@ -254,9 +254,9 @@ const Contact = () => {
             {/* Social Links */}
             <motion.div
               variants={itemVariants}
-              className="bg-white rounded-xl p-6 border border-gray-100"
+              className="bg-theme-card rounded-xl p-6 border border-theme"
             >
-              <h3 className="text-xl font-bold text-dark mb-4">Connect</h3>
+              <h3 className="text-xl font-bold text-theme-text-primary mb-4">Connect</h3>
               <div className="flex gap-4" role="navigation" aria-label="Social media links">
                 {socialLinks.map(({ icon: Icon, name, url, ariaLabel }) => (
                   <motion.a
@@ -264,7 +264,7 @@ const Contact = () => {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-gray-50 hover:bg-primary hover:text-white text-gray-700 rounded-lg transition-colors font-medium"
+                    className="flex items-center gap-2 px-6 py-3 bg-theme-bg-secondary hover:bg-theme-accent-primary hover:text-white text-theme-text-secondary rounded-lg transition-colors font-medium border border-theme"
                     whileHover={{ y: -3 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     aria-label={ariaLabel}
@@ -283,11 +283,11 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+            className="bg-theme-card rounded-2xl p-8 shadow-lg border border-theme"
           >
             <div className="mb-8">
-              <h3 className="text-2xl font-bold text-dark mb-2">Send a Message</h3>
-              <p className="text-gray-600">
+              <h3 className="text-2xl font-bold text-theme-text-primary mb-2">Send a Message</h3>
+              <p className="text-theme-text-secondary">
                 Have a project in mind? Let's discuss how we can work together.
               </p>
             </div>
@@ -301,7 +301,7 @@ const Contact = () => {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="user_name" className="block text-sm font-medium text-dark mb-2">
+                  <label htmlFor="user_name" className="block text-sm font-medium text-theme-text-primary mb-2">
                     Full Name <span className="text-red-500" aria-label="required">*</span>
                   </label>
                   <input
@@ -310,10 +310,10 @@ const Contact = () => {
                     name="user_name"
                     value={formData.user_name}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-theme-bg-primary text-theme-text-primary ${
                       fieldErrors.user_name
                         ? 'border-red-300 focus:ring-red-200'
-                        : 'border-gray-300 focus:ring-primary focus:border-primary'
+                        : 'border-theme focus:ring-theme-accent-primary focus:border-theme-accent-primary'
                     }`}
                     placeholder="Enter your full name"
                     required
@@ -329,7 +329,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="user_email" className="block text-sm font-medium text-dark mb-2">
+                  <label htmlFor="user_email" className="block text-sm font-medium text-theme-text-primary mb-2">
                     Email Address <span className="text-red-500" aria-label="required">*</span>
                   </label>
                   <input
@@ -338,10 +338,10 @@ const Contact = () => {
                     name="user_email"
                     value={formData.user_email}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-theme-bg-primary text-theme-text-primary ${
                       fieldErrors.user_email
                         ? 'border-red-300 focus:ring-red-200'
-                        : 'border-gray-300 focus:ring-primary focus:border-primary'
+                        : 'border-theme focus:ring-theme-accent-primary focus:border-theme-accent-primary'
                     }`}
                     placeholder="your.email@example.com"
                     required
@@ -358,7 +358,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-theme-text-primary mb-2">
                   Message <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <textarea
@@ -366,10 +366,10 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none bg-theme-bg-primary text-theme-text-primary ${
                     fieldErrors.message
                       ? 'border-red-300 focus:ring-red-200'
-                      : 'border-gray-300 focus:ring-primary focus:border-primary'
+                      : 'border-theme focus:ring-theme-accent-primary focus:border-theme-accent-primary'
                   }`}
                   placeholder="Tell me about your project, ideas, or just say hello..."
                   rows="6"
@@ -383,7 +383,7 @@ const Contact = () => {
                     {fieldErrors.message}
                   </span>
                 )}
-                <span className="text-sm text-gray-500 mt-1 block" aria-live="polite">
+                <span className="text-sm text-theme-text-tertiary mt-1 block" aria-live="polite">
                   {formData.message.length} characters
                 </span>
               </div>
@@ -428,18 +428,18 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3"
+                  className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-start gap-3"
                   role="alert"
                   aria-live="polite"
                 >
-                  <CheckCircle size={20} className="text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <CheckCircle size={20} className="text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="flex-1">
-                    <h4 className="font-bold text-green-900">Message sent successfully!</h4>
-                    <p className="text-sm text-green-700">Thank you for reaching out. I'll get back to you soon.</p>
+                    <h4 className="font-bold text-green-900 dark:text-green-100">Message sent successfully!</h4>
+                    <p className="text-sm text-green-700 dark:text-green-300">Thank you for reaching out. I'll get back to you soon.</p>
                   </div>
                   <button
                     onClick={handleDismissMessage}
-                    className="text-green-600 hover:text-green-800 transition-colors"
+                    className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-200 transition-colors"
                     aria-label="Dismiss success message"
                   >
                     <XCircle size={18} />
@@ -452,20 +452,20 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
+                  className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3"
                   role="alert"
                   aria-live="assertive"
                 >
-                  <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <AlertCircle size={20} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="flex-1">
-                    <h4 className="font-bold text-red-900">Something went wrong</h4>
-                    <p className="text-sm text-red-700">
+                    <h4 className="font-bold text-red-900 dark:text-red-100">Something went wrong</h4>
+                    <p className="text-sm text-red-700 dark:text-red-300">
                       {errorMessage || 'Please try again or contact me directly via email.'}
                     </p>
                   </div>
                   <button
                     onClick={handleDismissMessage}
-                    className="text-red-600 hover:text-red-800 transition-colors"
+                    className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200 transition-colors"
                     aria-label="Dismiss error message"
                   >
                     <XCircle size={18} />

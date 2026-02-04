@@ -45,7 +45,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-24 bg-gray-50" aria-label="Portfolio Projects">
+    <section id="projects" className="py-24 bg-theme-bg-secondary" aria-label="Portfolio Projects">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.header
@@ -55,19 +55,19 @@ const Projects = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-dark mb-4">
-            Selected <span className="text-primary">Work</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
+            Selected <span className="text-theme-accent-primary">Work</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
             A curated selection of projects showcasing web development expertise across frontend and full-stack solutions.
           </p>
         </motion.header>
 
         {/* Projects */}
         {loading ? (
-          <div className="text-center py-12 text-gray-500">Loading projects...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">Loading projects...</div>
         ) : projects.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">No projects available yet.</div>
+          <div className="text-center py-12 text-theme-text-tertiary">No projects available yet.</div>
         ) : (
           <motion.div
             variants={containerVariants}
@@ -80,7 +80,7 @@ const Projects = () => {
               <motion.article
                 key={project._id}
                 variants={itemVariants}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group"
+                className="bg-theme-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group border border-theme"
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="relative overflow-hidden aspect-video">
@@ -96,7 +96,7 @@ const Projects = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        className="w-12 h-12 bg-theme-card rounded-full flex items-center justify-center text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white transition-colors"
                         aria-label={`View ${project.title} live`}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -108,7 +108,7 @@ const Projects = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+                        className="w-12 h-12 bg-theme-card rounded-full flex items-center justify-center text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white transition-colors"
                         aria-label={`View ${project.title} source code`}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -120,23 +120,23 @@ const Projects = () => {
 
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="px-3 py-1 bg-blue-50 text-primary rounded-full font-medium">{project.category}</span>
+                  <span className="px-3 py-1 bg-blue-50 dark:bg-theme-bg-tertiary text-theme-accent-primary rounded-full font-medium">{project.category}</span>
                   {project.featured && (
-                    <span className="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full font-medium">Featured</span>
+                    <span className="px-3 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full font-medium">Featured</span>
                   )}
                 </div>
 
-                <h3 className="text-xl font-bold text-dark">{project.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{project.description.substring(0, 120)}...</p>
+                <h3 className="text-xl font-bold text-theme-text-primary">{project.title}</h3>
+                <p className="text-theme-text-secondary text-sm leading-relaxed">{project.description.substring(0, 120)}...</p>
 
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.slice(0, 3).map((tech, index) => (
-                    <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium">
+                    <span key={index} className="px-3 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded-md text-xs font-medium border border-theme">
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium">+{project.technologies.length - 3}</span>
+                    <span className="px-3 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded-md text-xs font-medium border border-theme">+{project.technologies.length - 3}</span>
                   )}
                 </div>
               </div>
@@ -159,11 +159,11 @@ const Projects = () => {
                 initial={{ scale: 0.9, y: 50 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 50 }}
-                className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
+                className="bg-theme-card rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative border border-theme"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
-                  className="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-2xl text-gray-600 hover:text-dark transition-colors z-10"
+                  className="absolute top-4 right-4 w-10 h-10 bg-theme-bg-secondary hover:bg-theme-bg-tertiary rounded-full flex items-center justify-center text-2xl text-theme-text-secondary hover:text-theme-text-primary transition-colors z-10"
                   onClick={() => setSelectedProject(null)}
                   aria-label="Close project details"
                 >
@@ -180,26 +180,26 @@ const Projects = () => {
 
                 <div className="p-8 space-y-6">
                   <div>
-                    <h3 className="text-3xl font-bold text-dark mb-2">{selectedProject.title}</h3>
-                    <div className="flex items-center gap-2 text-gray-500">
-                      <span className="px-3 py-1 bg-blue-50 text-primary rounded-full text-sm font-medium">{selectedProject.category}</span>
+                    <h3 className="text-3xl font-bold text-theme-text-primary mb-2">{selectedProject.title}</h3>
+                    <div className="flex items-center gap-2 text-theme-text-tertiary">
+                      <span className="px-3 py-1 bg-blue-50 dark:bg-theme-bg-tertiary text-theme-accent-primary rounded-full text-sm font-medium">{selectedProject.category}</span>
                       {selectedProject.featured && (
                         <>
                           <span>•</span>
-                          <span className="text-yellow-600">Featured</span>
+                          <span className="text-yellow-600 dark:text-yellow-400">Featured</span>
                         </>
                       )}
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="text-xl font-bold text-dark">Overview</h4>
-                    <p className="text-gray-600 leading-relaxed">{selectedProject.description}</p>
+                    <h4 className="text-xl font-bold text-theme-text-primary">Overview</h4>
+                    <p className="text-theme-text-secondary leading-relaxed">{selectedProject.description}</p>
 
-                    <h4 className="text-xl font-bold text-dark pt-4">Technologies</h4>
+                    <h4 className="text-xl font-bold text-theme-text-primary pt-4">Technologies</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.technologies.map((tech, index) => (
-                        <span key={index} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">
+                        <span key={index} className="px-4 py-2 bg-theme-bg-secondary text-theme-text-secondary rounded-lg text-sm font-medium border border-theme">
                           {tech}
                         </span>
                       ))}
