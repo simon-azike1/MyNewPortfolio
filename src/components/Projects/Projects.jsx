@@ -120,9 +120,9 @@ const Projects = () => {
 
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="px-3 py-1 bg-blue-50 dark:bg-theme-bg-tertiary text-theme-accent-primary rounded-full font-medium">{project.category}</span>
+                  <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-primary rounded-full font-medium border border-theme">{project.category}</span>
                   {project.featured && (
-                    <span className="px-3 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full font-medium">Featured</span>
+                    <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full font-medium border border-theme">Featured</span>
                   )}
                 </div>
 
@@ -182,11 +182,11 @@ const Projects = () => {
                   <div>
                     <h3 className="text-3xl font-bold text-theme-text-primary mb-2">{selectedProject.title}</h3>
                     <div className="flex items-center gap-2 text-theme-text-tertiary">
-                      <span className="px-3 py-1 bg-blue-50 dark:bg-theme-bg-tertiary text-theme-accent-primary rounded-full text-sm font-medium">{selectedProject.category}</span>
+                      <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-primary rounded-full text-sm font-medium border border-theme">{selectedProject.category}</span>
                       {selectedProject.featured && (
                         <>
                           <span>•</span>
-                          <span className="text-yellow-600 dark:text-yellow-400">Featured</span>
+                          <span className="text-theme-accent-secondary">Featured</span>
                         </>
                       )}
                     </div>

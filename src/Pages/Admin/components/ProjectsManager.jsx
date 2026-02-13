@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X, ExternalLink, Github } from 'lucide-react';
 import { projectsAPI, adminProjectsAPI } from '../../../services/api';
 
-const ProjectsManager = () => {
+const ProjectsManager = ({ quickAction }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -119,13 +119,19 @@ const ProjectsManager = () => {
     setShowModal(true);
   };
 
+  useEffect(() => {
+    if (quickAction?.tab === 'projects') {
+      handleAddNew();
+    }
+  }, [quickAction?.token]);
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-dark">Projects Management</h2>
-          <p className="text-gray-600">Manage your portfolio projects</p>
+          <h2 className="text-2xl font-bold text-theme-text-primary">Projects Management</h2>
+          <p className="text-theme-text-secondary">Manage your portfolio projects</p>
         </div>
         <button
           onClick={handleAddNew}
@@ -139,36 +145,36 @@ const ProjectsManager = () => {
       {/* Projects List */}
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-12 text-gray-500">Loading projects...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">Loading projects...</div>
         ) : projects.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">No projects yet. Add your first project!</div>
+          <div className="text-center py-12 text-theme-text-tertiary">No projects yet. Add your first project!</div>
         ) : (
           projects.map((project) => (
             <motion.div
               key={project._id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-xl shadow-sm p-6"
+              className="bg-theme-card rounded-xl shadow-sm p-6 border border-theme"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-xl font-bold text-dark">{project.title}</h3>
-                    <span className="px-3 py-1 bg-blue-50 text-primary rounded-full text-sm font-medium">
+                    <h3 className="text-xl font-bold text-theme-text-primary">{project.title}</h3>
+                    <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-primary rounded-full text-sm font-medium border border-theme">
                       {project.category}
                     </span>
                     {project.featured && (
-                      <span className="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-sm">
+                      <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full text-sm border border-theme">
                         Featured
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <p className="text-theme-text-secondary mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
+                        className="px-2 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded text-xs border border-theme"
                       >
                         {tech}
                       </span>
@@ -180,7 +186,7 @@ const ProjectsManager = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-primary hover:underline"
+                        className="flex items-center gap-1 text-theme-accent-primary hover:underline"
                       >
                         <ExternalLink size={16} />
                         Live Demo
@@ -191,7 +197,7 @@ const ProjectsManager = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-primary hover:underline"
+                        className="flex items-center gap-1 text-theme-accent-primary hover:underline"
                       >
                         <Github size={16} />
                         Source Code
@@ -202,7 +208,7 @@ const ProjectsManager = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleEdit(project)}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    className="p-2 text-theme-accent-primary hover:bg-theme-bg-secondary rounded-lg transition-colors"
                   >
                     <Edit size={20} />
                   </button>
@@ -234,15 +240,15 @@ const ProjectsManager = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6"
+              className="bg-theme-card rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 border border-theme"
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-dark">
+                <h3 className="text-2xl font-bold text-theme-text-primary">
                   {editingProject ? 'Edit Project' : 'Add New Project'}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-theme-bg-secondary rounded-lg transition-colors"
                 >
                   <X size={24} />
                 </button>
@@ -251,25 +257,25 @@ const ProjectsManager = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-dark mb-2">
+                    <label className="block text-sm font-medium text-theme-text-primary mb-2">
                       Project Title *
                     </label>
                     <input
                       type="text"
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-dark mb-2">
+                    <label className="block text-sm font-medium text-theme-text-primary mb-2">
                       Category *
                     </label>
                     <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                       required
                     >
                       <option value="web">Web</option>
@@ -281,27 +287,27 @@ const ProjectsManager = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Description *
                   </label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary resize-none bg-theme-bg-primary text-theme-text-primary"
                     rows="4"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Image URL *
                   </label>
                   <input
                     type="url"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     placeholder="https://..."
                     required
                   />
@@ -309,26 +315,26 @@ const ProjectsManager = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-dark mb-2">
+                    <label className="block text-sm font-medium text-theme-text-primary mb-2">
                       Live URL
                     </label>
                     <input
                       type="url"
                       value={formData.liveUrl}
                       onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                       placeholder="https://..."
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-dark mb-2">
+                    <label className="block text-sm font-medium text-theme-text-primary mb-2">
                       GitHub URL
                     </label>
                     <input
                       type="url"
                       value={formData.githubUrl}
                       onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                       placeholder="https://github.com/..."
                     />
                   </div>
@@ -336,14 +342,14 @@ const ProjectsManager = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-dark mb-2">
+                    <label className="block text-sm font-medium text-theme-text-primary mb-2">
                       Technologies (comma separated) *
                     </label>
                     <input
                       type="text"
                       value={formData.technologies}
                       onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                       placeholder="React, Node.js, MongoDB"
                       required
                     />
@@ -354,9 +360,9 @@ const ProjectsManager = () => {
                       id="featured"
                       checked={formData.featured}
                       onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                      className="w-4 h-4 text-primary focus:ring-2 focus:ring-primary border-gray-300 rounded"
+                      className="w-4 h-4 text-theme-accent-primary focus:ring-2 focus:ring-theme-accent-primary border-theme rounded"
                     />
-                    <label htmlFor="featured" className="ml-2 text-sm font-medium text-dark">
+                    <label htmlFor="featured" className="ml-2 text-sm font-medium text-theme-text-primary">
                       Mark as Featured Project
                     </label>
                   </div>

@@ -9,13 +9,13 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#182d59',
-          dark: '#424f7a',
-          light: '#0e1012',
+          DEFAULT: '#1f4f89',
+          dark: '#163c6a',
+          light: '#4a86c5',
         },
         dark: {
-          DEFAULT: '#0a0a0a',
-          light: '#1a1a1a',
+          DEFAULT: '#0b1628',
+          light: '#111f35',
         },
         theme: {
           'bg-primary': 'var(--bg-primary)',

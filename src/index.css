@@ -14,19 +14,41 @@
   }
   
   .btn-primary {
-    @apply bg-primary text-white hover:bg-primary-dark;
+    @apply bg-theme-accent-primary text-white hover:bg-theme-accent-hover;
   }
   
   .btn-secondary {
-    @apply bg-dark text-white hover:bg-dark-light;
+    @apply bg-theme-bg-secondary text-theme-text-primary hover:bg-theme-bg-tertiary border border-theme;
   }
   
   .btn-outline {
-    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+    @apply border-2 border-theme text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white;
   }
 }
-/* Quick Fix - Add to your index.css or App.css */
+
 nav button {
   background: transparent;
   border: none;
+}
+
+.about-disclosure > summary {
+  list-style: none;
+}
+
+.about-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.about-disclosure__content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height 0.9s ease, opacity 0.8s ease, transform 0.8s ease;
+}
+
+.about-disclosure[open] > .about-disclosure__content {
+  max-height: 240px;
+  opacity: 1;
+  transform: translateY(0);
 }

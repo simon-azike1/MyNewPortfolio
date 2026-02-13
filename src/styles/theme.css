@@ -6,75 +6,75 @@
 /* Light Mode (Default) */
 :root[data-theme='light'] {
   /* Background colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
+  --bg-primary: #f6f8fb;
+  --bg-secondary: #eef3f9;
+  --bg-tertiary: #e2ecf6;
   
   /* Text colors */
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
-  --text-tertiary: #adb5bd;
+  --text-primary: #0f1f33;
+  --text-secondary: #3b4a61;
+  --text-tertiary: #5a6b82;
   
   /* Accent colors */
-  --accent-primary: #007bff;
-  --accent-secondary: #6610f2;
-  --accent-hover: #0056b3;
+  --accent-primary: #1f4f89;
+  --accent-secondary: #4a86c5;
+  --accent-hover: #163c6a;
   
   /* Border colors */
-  --border-color: #dee2e6;
-  --border-light: #e9ecef;
+  --border-color: #d3dbe8;
+  --border-light: #e6edf6;
   
   /* Shadow colors */
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --shadow-color: rgba(15, 31, 51, 0.08);
+  --shadow-hover: rgba(15, 31, 51, 0.16);
   
   /* Card backgrounds */
-  --card-bg: #ffffff;
-  --card-hover: #f8f9fa;
+  --card-bg: #fbfdff;
+  --card-hover: #f0f6fb;
   
   /* Toggle button */
-  --toggle-bg: #ffffff;
+  --toggle-bg: #fbfdff;
   
   /* Code/pre backgrounds */
-  --code-bg: #f8f9fa;
-  --code-text: #e83e8c;
+  --code-bg: #e9f1f8;
+  --code-text: #1f4f89;
 }
 
 /* Dark Mode */
 :root[data-theme='dark'] {
   /* Background colors */
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-tertiary: #21262d;
+  --bg-primary: #0b1628;
+  --bg-secondary: #111f35;
+  --bg-tertiary: #172946;
   
   /* Text colors */
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-tertiary: #6e7681;
+  --text-primary: #e6edf7;
+  --text-secondary: #b9c6db;
+  --text-tertiary: #8fa3bf;
   
   /* Accent colors */
-  --accent-primary: #58a6ff;
-  --accent-secondary: #bc8cff;
-  --accent-hover: #79c0ff;
+  --accent-primary: #4a86c5;
+  --accent-secondary: #bfe9f7;
+  --accent-hover: #6ea7d6;
   
   /* Border colors */
-  --border-color: #30363d;
-  --border-light: #21262d;
+  --border-color: #22324b;
+  --border-light: #172946;
   
   /* Shadow colors */
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --shadow-hover: rgba(0, 0, 0, 0.5);
+  --shadow-color: rgba(0, 0, 0, 0.35);
+  --shadow-hover: rgba(0, 0, 0, 0.55);
   
   /* Card backgrounds */
-  --card-bg: #161b22;
-  --card-hover: #21262d;
+  --card-bg: #111f35;
+  --card-hover: #172946;
   
   /* Toggle button */
-  --toggle-bg: #21262d;
+  --toggle-bg: #172946;
   
   /* Code/pre backgrounds */
-  --code-bg: #161b22;
-  --code-text: #ff7b72;
+  --code-bg: #0f1b2f;
+  --code-text: #bfe9f7;
 }
 
 /* Apply theme to body and common elements */
@@ -112,18 +112,6 @@ p {
 .card:hover, .project-card:hover, .skill-card:hover {
   background-color: var(--card-hover);
   transform: translateY(-4px);
-}
-
-/* Button styling */
-button, .btn {
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-}
-
-button:hover, .btn:hover {
-  background-color: var(--accent-hover);
 }
 
 /* Input styling */

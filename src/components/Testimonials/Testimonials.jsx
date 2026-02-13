@@ -91,7 +91,7 @@ const Testimonials = () => {
                   <p className="text-sm text-theme-text-tertiary">{testimonial.role}</p>
                 </div>
 
-                <div className="flex gap-1 text-yellow-400 text-lg" aria-label={`${testimonial.rating} out of 5 stars`}>
+                <div className="flex gap-1 text-theme-accent-primary text-lg" aria-label={`${testimonial.rating} out of 5 stars`}>
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <span key={i} aria-hidden="true">★</span>
                   ))}

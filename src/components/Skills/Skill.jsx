@@ -36,11 +36,11 @@ const Skills = () => {
 
   const getLevelColor = (level) => {
     switch (level) {
-      case 'Expert': return '#10b981';
-      case 'Advanced': return '#3b82f6';
-      case 'Intermediate': return '#f59e0b';
-      case 'Beginner': return '#ef4444';
-      default: return '#6b7280';
+      case 'Expert': return '#0f2a54';
+      case 'Advanced': return '#1f4f89';
+      case 'Intermediate': return '#4a86c5';
+      case 'Beginner': return '#163c6a';
+      default: return '#5a6b82';
     }
   };
 

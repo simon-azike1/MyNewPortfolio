@@ -87,18 +87,22 @@ const Navbar = () => {
         className={`fixed p-2 top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'bg-theme-bg-primary shadow-lg'
-            : 'bg-theme-bg-primary/95 backdrop-blur-sm'
+            : 'bg-theme-bg-primary backdrop-blur-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 border-b border-theme">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div
+            <a
+              href="/"
               className="cursor-pointer text-2xl font-bold text-theme-accent-primary"
-              onClick={() => scrollToSection('home')}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('home');
+              }}
             >
               SimZik
-            </div>
+            </a>
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
@@ -106,10 +110,10 @@ const Navbar = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`font-medium ${
+                  className={`font-medium transition-colors ${
                     activeSection === item.id
                       ? 'text-theme-accent-primary'
-                      : 'text-theme-text-secondary'
+                      : 'text-theme-text-secondary hover:text-theme-accent-primary'
                   }`}
                 >
                   {item.name}
@@ -125,7 +129,7 @@ const Navbar = () => {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-theme-text-secondary"
+                  className="text-theme-text-secondary hover:text-theme-accent-primary transition-colors"
                   title={name}
                 >
                   <Icon size={20} />
@@ -163,21 +167,21 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         {isOpen && (
-          <div className="md:hidden bg-theme-bg-primary border-t border-theme">
-            <div className="px-6 py-8 space-y-6">
-              {navItems.map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-4 py-3 rounded-lg ${
-                    activeSection === item.id
+            <div className="md:hidden bg-theme-bg-primary border-t border-theme">
+              <div className="px-6 py-8 space-y-6">
+                {navItems.map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`block w-full text-left px-4 py-3 rounded-lg ${
+                      activeSection === item.id
                       ? 'bg-theme-bg-secondary text-theme-accent-primary font-medium'
-                      : 'text-theme-text-primary'
-                  }`}
-                >
-                  {item.name}
-                </button>
-              ))}
+                      : 'text-theme-text-primary hover:bg-theme-bg-secondary'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                ))}
 
               {/* Mobile Theme Toggle */}
               <button

@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Heart,
   ArrowUp,
   Github,
   Linkedin,
-  Twitter,
   Mail,
-  Code,
-  Coffee,
-  Zap
+  Code
 } from 'lucide-react'
 
 const Footer = () => {
@@ -47,21 +43,18 @@ const Footer = () => {
     { 
       name: 'GitHub', 
       icon: Github, 
-      url: 'https://github.com/simon-azike1',
-      color: '#181717' 
+      url: 'https://github.com/simon-azike1'
     },
     { 
       name: 'LinkedIn', 
       icon: Linkedin, 
-      url: 'https://www.linkedin.com/in/simonzik/',
-      color: '#0077b5' 
+      url: 'https://www.linkedin.com/in/simonzik/'
     },
     
     { 
       name: 'Email', 
       icon: Mail, 
-      url: 'mailto:your.email@example.com',
-      color: '#EA4335' 
+      url: 'mailto:your.email@example.com'
     }
   ]
 
@@ -83,7 +76,7 @@ const Footer = () => {
   return (
     <>
       {/* Enhanced Footer */}
-      <footer className="bg-dark text-white py-16">
+      <footer className="bg-theme-bg-tertiary text-theme-text-secondary py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="space-y-12">
             {/* Main Footer Content */}
@@ -97,9 +90,9 @@ const Footer = () => {
                 viewport={{ once: true }}
               >
                 <a href="#home" className="inline-flex items-center gap-3 group">
-                  <span className="text-2xl font-bold text-primary">SimZik</span>
+                  <span className="text-2xl font-bold text-theme-accent-primary">SimZik</span>
                 </a>
-                <p className="text-gray-400 leading-relaxed">
+                <p className="text-theme-text-secondary leading-relaxed">
                   Crafting digital experiences with passion and precision.
                   Transforming ideas into reality.
                 </p>
@@ -113,13 +106,13 @@ const Footer = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-bold text-lg">Quick Links</h3>
+                <h3 className="font-bold text-lg text-theme-text-primary">Quick Links</h3>
                 <div className="flex flex-col gap-2">
                   {quickLinks.map((link, index) => (
                     <motion.a
                       key={link.name}
                       href={link.href}
-                      className="text-gray-400 hover:text-primary transition-colors inline-block"
+                      className="text-theme-text-tertiary hover:text-theme-accent-primary transition-colors inline-block"
                       whileHover={{ x: 4 }}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -140,13 +133,13 @@ const Footer = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-bold text-lg">Connect</h3>
+                <h3 className="font-bold text-lg text-theme-text-primary">Connect</h3>
                 <div className="flex gap-4">
                   {socialLinks.map((social, index) => (
                     <motion.a
                       key={social.name}
                       href={social.url}
-                      className="w-10 h-10 bg-dark-light hover:bg-primary rounded-lg flex items-center justify-center transition-colors"
+                      className="w-10 h-10 bg-theme-bg-secondary hover:bg-theme-accent-primary hover:text-white rounded-lg flex items-center justify-center transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ y: -4, scale: 1.1 }}
@@ -166,33 +159,33 @@ const Footer = () => {
 
             {/* Footer Bottom */}
             <motion.div
-              className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4"
+              className="pt-8 border-t border-theme flex flex-col sm:flex-row items-center justify-between gap-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
               <div className="flex items-center gap-4">
-                <p className="text-gray-400 text-sm text-center sm:text-left">
+                <p className="text-theme-text-tertiary text-sm text-center sm:text-left">
                   © {currentYear} SimZik. Built with passion
                 </p>
                 <button
                   onClick={() => navigate('/admin/login')}
-                  className="text-gray-600 hover:text-gray-400 text-xs transition-colors"
+                  className="text-theme-text-tertiary hover:text-theme-text-secondary text-xs transition-colors"
                   aria-label="Admin"
                 >
                   •
                 </button>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-gray-400">
+              <div className="flex items-center gap-2 text-sm text-theme-text-tertiary">
                 <Code size={14} />
-                <span>Built with:</span>
+                <span className="text-theme-text-primary">Built with:</span>
                 <div className="flex gap-2">
                   {techStack.map((tech, index) => (
                     <motion.span
                       key={tech.name}
-                      className="px-2 py-1 bg-dark-light rounded text-xs hover:bg-primary hover:text-white transition-colors cursor-default"
+                      className="px-2 py-1 bg-theme-bg-secondary rounded text-xs hover:bg-theme-accent-primary hover:text-white transition-colors cursor-default"
                       whileHover={{ y: -2 }}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -213,7 +206,7 @@ const Footer = () => {
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
-            className="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-primary-dark transition-colors z-50"
+            className="fixed bottom-8 right-8 w-12 h-12 bg-theme-accent-primary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-theme-accent-hover transition-colors z-50"
             onClick={scrollToTop}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}

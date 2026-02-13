@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import { skillsAPI, adminSkillsAPI } from '../../../services/api';
 
-const SkillsManager = () => {
+const SkillsManager = ({ quickAction }) => {
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -103,13 +103,19 @@ const SkillsManager = () => {
     setShowModal(true);
   };
 
+  useEffect(() => {
+    if (quickAction?.tab === 'skills') {
+      handleAddNew();
+    }
+  }, [quickAction?.token]);
+
   const getLevelColor = (level) => {
     switch (level) {
-      case 'Expert': return 'bg-green-500';
-      case 'Advanced': return 'bg-blue-500';
-      case 'Intermediate': return 'bg-yellow-500';
-      case 'Beginner': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'Expert': return 'bg-primary-dark';
+      case 'Advanced': return 'bg-primary';
+      case 'Intermediate': return 'bg-primary-light';
+      case 'Beginner': return 'bg-dark';
+      default: return 'bg-theme-bg-tertiary';
     }
   };
 
@@ -118,8 +124,8 @@ const SkillsManager = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-dark">Skills Management</h2>
-          <p className="text-gray-600">Manage your technical skills</p>
+          <h2 className="text-2xl font-bold text-theme-text-primary">Skills Management</h2>
+          <p className="text-theme-text-secondary">Manage your technical skills</p>
         </div>
         <button onClick={handleAddNew} className="btn btn-primary">
           <Plus size={20} />
@@ -130,33 +136,33 @@ const SkillsManager = () => {
       {/* Skills Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {loading ? (
-          <div className="col-span-2 text-center py-12 text-gray-500">Loading skills...</div>
+          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">Loading skills...</div>
         ) : skills.length === 0 ? (
-          <div className="col-span-2 text-center py-12 text-gray-500">No skills yet. Add your first skill!</div>
+          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">No skills yet. Add your first skill!</div>
         ) : (
           skills.map((skill) => (
             <motion.div
               key={skill._id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-xl shadow-sm p-6"
+              className="bg-theme-card rounded-xl shadow-sm p-6 border border-theme"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-dark mb-2">{skill.name}</h3>
+                  <h3 className="text-lg font-bold text-theme-text-primary mb-2">{skill.name}</h3>
                   <div className="flex items-center gap-2 text-sm mb-2">
                     <span className={`px-2 py-1 text-white rounded text-xs ${getLevelColor(skill.level)}`}>
                       {skill.level}
                     </span>
-                    <span className="text-gray-500">{skill.category}</span>
-                    <span className="text-gray-400">•</span>
-                    <span className="text-gray-500">{skill.experience}</span>
+                    <span className="text-theme-text-tertiary">{skill.category}</span>
+                    <span className="text-theme-text-tertiary">•</span>
+                    <span className="text-theme-text-tertiary">{skill.experience}</span>
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleEdit(skill)}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    className="p-2 text-theme-accent-primary hover:bg-theme-bg-secondary rounded-lg transition-colors"
                   >
                     <Edit size={18} />
                   </button>
@@ -168,13 +174,13 @@ const SkillsManager = () => {
                   </button>
                 </div>
               </div>
-              <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="relative h-2 bg-theme-bg-secondary rounded-full overflow-hidden">
                 <div
                   className={`absolute inset-y-0 left-0 ${getLevelColor(skill.level)} rounded-full`}
                   style={{ width: `${skill.percentage}%` }}
                 />
               </div>
-              <p className="text-right text-sm text-gray-600 mt-1">{skill.percentage}%</p>
+              <p className="text-right text-sm text-theme-text-tertiary mt-1">{skill.percentage}%</p>
             </motion.div>
           ))
         )}
@@ -195,15 +201,15 @@ const SkillsManager = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl max-w-md w-full p-6"
+              className="bg-theme-card rounded-2xl max-w-md w-full p-6 border border-theme"
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-dark">
+                <h3 className="text-2xl font-bold text-theme-text-primary">
                   {editingSkill ? 'Edit Skill' : 'Add New Skill'}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-theme-bg-secondary rounded-lg transition-colors"
                 >
                   <X size={24} />
                 </button>
@@ -211,27 +217,27 @@ const SkillsManager = () => {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Skill Name *
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     placeholder="e.g., React.js"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Category *
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     required
                   >
                     <option value="frontend">Frontend</option>
@@ -241,13 +247,13 @@ const SkillsManager = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Level *
                   </label>
                   <select
                     value={formData.level}
                     onChange={(e) => setFormData({ ...formData, level: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     required
                   >
                     <option value="Beginner">Beginner</option>
@@ -258,7 +264,7 @@ const SkillsManager = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Proficiency: {formData.percentage}%
                   </label>
                   <input
@@ -272,14 +278,14 @@ const SkillsManager = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-dark mb-2">
+                  <label className="block text-sm font-medium text-theme-text-primary mb-2">
                     Experience *
                   </label>
                   <input
                     type="text"
                     value={formData.experience}
                     onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     placeholder="e.g., 2+ years"
                     required
                   />
@@ -308,3 +314,5 @@ const SkillsManager = () => {
 };
 
 export default SkillsManager;
+
+

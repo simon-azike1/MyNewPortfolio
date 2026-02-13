@@ -238,7 +238,7 @@ const Contact = () => {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     aria-label={info.ariaLabel}
                   >
-                    <div className="w-12 h-12 bg-blue-50 dark:bg-theme-bg-tertiary rounded-lg flex items-center justify-center text-theme-accent-primary group-hover:bg-theme-accent-primary group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true">
+                    <div className="w-12 h-12 bg-theme-bg-tertiary rounded-lg flex items-center justify-center text-theme-accent-primary group-hover:bg-theme-accent-primary group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true">
                       <Icon size={24} />
                     </div>
                     <div className="flex-1">
@@ -257,14 +257,14 @@ const Contact = () => {
               className="bg-theme-card rounded-xl p-6 border border-theme"
             >
               <h3 className="text-xl font-bold text-theme-text-primary mb-4">Connect</h3>
-              <div className="flex gap-4" role="navigation" aria-label="Social media links">
+              <div className="flex flex-wrap gap-4" role="navigation" aria-label="Social media links">
                 {socialLinks.map(({ icon: Icon, name, url, ariaLabel }) => (
                   <motion.a
                     key={name}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-theme-bg-secondary hover:bg-theme-accent-primary hover:text-white text-theme-text-secondary rounded-lg transition-colors font-medium border border-theme"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 bg-theme-bg-secondary hover:bg-theme-accent-primary hover:text-white text-theme-text-secondary rounded-lg transition-colors font-medium border border-theme"
                     whileHover={{ y: -3 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     aria-label={ariaLabel}
@@ -391,7 +391,7 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 className={`w-full btn ${
-                  formStatus === 'success' ? 'bg-green-500 hover:bg-green-600 text-white' :
+                  formStatus === 'success' ? 'bg-theme-accent-primary hover:bg-theme-accent-hover text-white' :
                   formStatus === 'error' ? 'bg-red-500 hover:bg-red-600 text-white' :
                   'btn-primary'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
@@ -428,18 +428,18 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-start gap-3"
+                  className="mt-6 p-4 bg-theme-bg-secondary border border-theme rounded-lg flex items-start gap-3"
                   role="alert"
                   aria-live="polite"
                 >
-                  <CheckCircle size={20} className="text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <CheckCircle size={20} className="text-theme-accent-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="flex-1">
-                    <h4 className="font-bold text-green-900 dark:text-green-100">Message sent successfully!</h4>
-                    <p className="text-sm text-green-700 dark:text-green-300">Thank you for reaching out. I'll get back to you soon.</p>
+                    <h4 className="font-bold text-theme-text-primary">Message sent successfully!</h4>
+                    <p className="text-sm text-theme-text-secondary">Thank you for reaching out. I'll get back to you soon.</p>
                   </div>
                   <button
                     onClick={handleDismissMessage}
-                    className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-200 transition-colors"
+                    className="text-theme-accent-primary hover:text-theme-accent-hover transition-colors"
                     aria-label="Dismiss success message"
                   >
                     <XCircle size={18} />
@@ -482,13 +482,13 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mt-16 bg-gradient-to-r from-primary to-primary-light rounded-2xl p-12 text-center text-white"
+          className="mt-16 bg-gradient-to-r from-theme-accent-primary to-theme-accent-secondary rounded-2xl p-6 sm:p-12 text-center text-white"
         >
           <h3 className="text-3xl font-bold mb-4">Ready to start your project?</h3>
-          <p className="text-lg mb-8 text-blue-100">Let's discuss your ideas and bring them to life together.</p>
+          <p className="text-lg mb-8 text-white/80">Let's discuss your ideas and bring them to life together.</p>
           <motion.a
             href="mailto:azikeshinye@gmail.com"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-theme-bg-primary text-theme-accent-primary rounded-lg font-medium hover:bg-theme-bg-secondary transition-colors shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Send email directly to azikeshinye@gmail.com"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/HeroSection/Hero';
@@ -10,13 +10,13 @@ import Footer from './components/Footer/Footer';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import { ThemeProvider } from './context/ThemeContext';
-import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [logoutRedirect, setLogoutRedirect] = useState(false);
 
   const PortfolioPage = () => (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-theme-bg-primary">
       <Navbar />
       <main className="pt-20">
         <Hero />
@@ -30,14 +30,19 @@ function App() {
   );
 
   const ProtectedAdminRoute = ({ children }) => {
-    return isAdminAuthenticated ? children : <Navigate to="/admin/login" replace />;
+    useEffect(() => {
+      if (!isAdminAuthenticated && logoutRedirect) {
+        setLogoutRedirect(false);
+      }
+    }, [isAdminAuthenticated, logoutRedirect]);
+
+    return isAdminAuthenticated
+      ? children
+      : <Navigate to={logoutRedirect ? "/" : "/admin/login"} replace />;
   };
 
   return (
     <ThemeProvider>
-      {/* Theme Toggle Button - will appear on all pages */}
-      <ThemeToggle />
-      
       <Router>
         <Routes>
           {/* Portfolio Routes */}
@@ -60,6 +65,7 @@ function App() {
               <ProtectedAdminRoute>
                 <AdminDashboard onLogout={() => {
                   localStorage.removeItem('adminToken');
+                  setLogoutRedirect(true);
                   setIsAdminAuthenticated(false);
                 }} />
               </ProtectedAdminRoute>
