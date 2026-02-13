@@ -206,7 +206,7 @@ const Hero = () => {
 
               <div className="text-center space-y-4">
                 <h3 className="text-2xl font-bold text-theme-text-primary">Simon Azike</h3>
-                <p className="text-lg text-theme-text-secondary">Frontend Developer</p>
+                <p className="text-lg text-theme-text-secondary">Software Engineer</p>
 
                 <div className="space-y-3 pt-4">
                   <div className="flex items-center gap-3 text-theme-text-secondary">
