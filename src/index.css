@@ -56,3 +56,41 @@ nav button {
   opacity: 1;
   transform: translateY(0);
 }
+
+.brand-wordmark {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  text-shadow: 0 1px 0 rgba(15, 31, 51, 0.12);
+}
+
+.brand-wordmark-hover {
+  position: relative;
+  display: inline-block;
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(31, 79, 137, 0.6) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-position: -120% 0%;
+  background-repeat: no-repeat;
+  animation: brand-shimmer 3.8s ease-in-out infinite;
+}
+
+.brand-wordmark-hover:hover {
+  color: var(--accent-primary);
+}
+
+@keyframes brand-shimmer {
+  0% {
+    background-position: -120% 0%;
+  }
+  50% {
+    background-position: 120% 0%;
+  }
+  100% {
+    background-position: 120% 0%;
+  }
+}

@@ -47,103 +47,124 @@ const Projects = () => {
   return (
     <section id="projects" className="py-24 bg-theme-bg-secondary" aria-label="Portfolio Projects">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
-            Selected <span className="text-theme-accent-primary">Work</span>
-          </h2>
-          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
-            A curated selection of projects showcasing web development expertise across frontend and full-stack solutions.
-          </p>
-        </motion.header>
-
-        {/* Projects */}
-        {loading ? (
-          <div className="text-center py-12 text-theme-text-tertiary">Loading projects...</div>
-        ) : projects.length === 0 ? (
-          <div className="text-center py-12 text-theme-text-tertiary">No projects available yet.</div>
-        ) : (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-20 items-start">
+          {/* Header */}
+          <motion.header
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="lg:sticky lg:top-28"
           >
-            {projects.map((project) => (
-              <motion.article
-                key={project._id}
-                variants={itemVariants}
-                className="bg-theme-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group border border-theme"
-                onClick={() => setSelectedProject(project)}
+            <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
+              Selected <span className="text-theme-accent-primary">Work</span>
+            </h2>
+            <p className="text-lg text-theme-text-secondary max-w-2xl">
+              A curated selection of projects showcasing web development expertise across frontend and full-stack solutions.
+            </p>
+            <div className="mt-6 space-y-4 text-theme-text-secondary">
+              <p className="text-sm uppercase tracking-[0.2em] text-theme-text-tertiary">What you will find</p>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2 w-2 rounded-full bg-theme-accent-primary"></span>
+                  <span>Product-focused builds with clean UX and maintainable architecture.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2 w-2 rounded-full bg-theme-accent-primary"></span>
+                  <span>Full-stack integrations, APIs, and performance-focused optimizations.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2 w-2 rounded-full bg-theme-accent-primary"></span>
+                  <span>Production-ready designs and documentation for smooth handoffs.</span>
+                </li>
+              </ul>
+            </div>
+          </motion.header>
+
+          {/* Projects */}
+          <div>
+            {loading ? (
+              <div className="text-center py-12 text-theme-text-tertiary">Loading projects...</div>
+            ) : projects.length === 0 ? (
+              <div className="text-center py-12 text-theme-text-tertiary">No projects available yet.</div>
+            ) : (
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-10"
               >
-                <div className="relative overflow-hidden aspect-video">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} project preview`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 bg-theme-card rounded-full flex items-center justify-center text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white transition-colors"
-                        aria-label={`View ${project.title} live`}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink size={18} />
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 bg-theme-card rounded-full flex items-center justify-center text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white transition-colors"
-                        aria-label={`View ${project.title} source code`}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Github size={18} />
-                      </a>
-                    )}
-                  </div>
-                </div>
+                {projects.map((project) => (
+                  <motion.article
+                    key={project._id}
+                    variants={itemVariants}
+                    className="bg-theme-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group border border-theme"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    <div className="relative overflow-hidden aspect-video">
+                      <img
+                        src={project.image}
+                        alt={`${project.title} project preview`}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 bg-theme-card rounded-full flex items-center justify-center text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white transition-colors"
+                            aria-label={`View ${project.title} live`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <ExternalLink size={18} />
+                          </a>
+                        )}
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 bg-theme-card rounded-full flex items-center justify-center text-theme-accent-primary hover:bg-theme-accent-primary hover:text-white transition-colors"
+                            aria-label={`View ${project.title} source code`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Github size={18} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
 
-              <div className="p-6 space-y-4">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-primary rounded-full font-medium border border-theme">{project.category}</span>
-                  {project.featured && (
-                    <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full font-medium border border-theme">Featured</span>
-                  )}
-                </div>
+                    <div className="p-6 space-y-4">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-primary rounded-full font-medium border border-theme">{project.category}</span>
+                        {project.featured && (
+                          <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full font-medium border border-theme">Featured</span>
+                        )}
+                      </div>
 
-                <h3 className="text-xl font-bold text-theme-text-primary">{project.title}</h3>
-                <p className="text-theme-text-secondary text-sm leading-relaxed">{project.description.substring(0, 120)}...</p>
+                      <h3 className="text-xl font-bold text-theme-text-primary">{project.title}</h3>
+                      <p className="text-theme-text-secondary text-sm leading-relaxed">{project.description.substring(0, 120)}...</p>
 
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 3).map((tech, index) => (
-                    <span key={index} className="px-3 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded-md text-xs font-medium border border-theme">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="px-3 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded-md text-xs font-medium border border-theme">+{project.technologies.length - 3}</span>
-                  )}
-                </div>
-              </div>
-            </motion.article>
-          ))}
-          </motion.div>
-        )}
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.slice(0, 3).map((tech, index) => (
+                          <span key={index} className="px-3 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded-md text-xs font-medium border border-theme">
+                            {tech}
+                          </span>
+                        ))}
+                        {project.technologies.length > 3 && (
+                          <span className="px-3 py-1 bg-theme-bg-secondary text-theme-text-secondary rounded-md text-xs font-medium border border-theme">+{project.technologies.length - 3}</span>
+                        )}
+                      </div>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        </div>
 
         {/* Case Study Modal */}
         <AnimatePresence>

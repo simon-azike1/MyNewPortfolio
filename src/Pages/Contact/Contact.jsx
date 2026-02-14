@@ -204,14 +204,16 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 flex justify-start"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
-            Get In <span className="text-theme-accent-primary">Touch</span>
-          </h2>
-          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
-            Open to discussing new opportunities and project collaborations.
-          </p>
+          <div className="max-w-2xl text-left">
+            <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
+              Get In <span className="text-theme-accent-primary">Touch</span>
+            </h2>
+            <p className="text-lg text-theme-text-secondary">
+              Open to discussing new opportunities and project collaborations.
+            </p>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

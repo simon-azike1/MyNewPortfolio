@@ -14,6 +14,7 @@ import ProjectsManager from './components/ProjectsManager';
 import SkillsManager from './components/SkillsManager';
 import TestimonialsManager from './components/TestimonialsManager';
 import { useTheme } from '../../context/ThemeContext';
+import logo from '../../assets/logo.png';
 
 const AdminDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -39,14 +40,20 @@ const AdminDashboard = ({ onLogout }) => {
   return (
     <div className="min-h-screen bg-theme-bg-primary text-theme-text-primary">
       {/* Top Navigation */}
-      <nav className="bg-theme-card border-b border-theme">
+      <nav className="sticky top-0 z-50 bg-theme-card border-b border-theme">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <a href="/" className="text-2xl font-bold text-theme-accent-primary">
-                SimZik Admin
+              <a href="/" className="flex items-center gap-3" aria-label="SimzikTech Home">
+                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-theme-accent-primary to-theme-accent-secondary p-[2px] shadow-md transition-transform duration-300 hover:scale-105">
+                  <span className="h-full w-full rounded-full bg-theme-bg-primary p-[2px]">
+                    <img src={logo} alt="SimzikTech logo" className="h-full w-full rounded-full object-cover" />
+                  </span>
+                </span>
+                <span className="brand-wordmark brand-wordmark-hover text-base font-medium italic text-theme-text-primary">
+                  SimzikTech
+                </span>
               </a>
-              <p className="text-sm text-theme-text-tertiary">Portfolio Management System</p>
             </div>
             <div className="flex items-center gap-3">
               <button

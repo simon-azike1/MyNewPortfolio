@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Download, Github, Linkedin, Twitter, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import logo from '../../assets/logo.png';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -95,13 +96,21 @@ const Navbar = () => {
             {/* Logo */}
             <a
               href="/"
-              className="cursor-pointer text-2xl font-bold text-theme-accent-primary"
+              className="flex items-center gap-3"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection('home');
               }}
+              aria-label="SimZik Home"
             >
-              SimZik
+              <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-theme-accent-primary to-theme-accent-secondary p-[2px] shadow-md transition-transform duration-300 hover:scale-105">
+                <span className="h-full w-full rounded-full bg-theme-bg-primary p-[2px]">
+                  <img src={logo} alt="SimZik logo" className="h-full w-full rounded-full object-cover" />
+                </span>
+              </span>
+              <span className="brand-wordmark brand-wordmark-hover text-base font-medium italic text-theme-text-primary">
+                SimzikTech
+              </span>
             </a>
 
             {/* Desktop Nav */}
