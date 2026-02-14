@@ -155,21 +155,23 @@ const Hero = () => {
           </motion.div>
 
           {/* Scroll Indicator */}
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-theme-text-tertiary hover:text-theme-accent-primary transition-colors cursor-pointer"
-            onClick={() => scrollToSection("about")}
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          <div className="mt-10 flex justify-center">
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="flex flex-col items-center gap-2 rounded-full bg-theme-bg-secondary/80 px-4 py-2 text-theme-text-primary shadow-md backdrop-blur-sm hover:text-theme-accent-primary transition-colors cursor-pointer"
+              onClick={() => scrollToSection("about")}
             >
-              <ChevronDown size={20} />
-            </motion.div>
-            <span className="text-sm">Scroll to explore</span>
-          </motion.button>
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+              >
+                <ChevronDown size={20} />
+              </motion.div>
+              <span className="text-sm">Scroll to explore</span>
+            </motion.button>
+          </div>
         </div>
       </section>
 
