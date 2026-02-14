@@ -45,9 +45,9 @@ const Contact = () => {
       icon: Phone,
       title: 'Phone',
       value: '+212 751-780853',
-      link: 'tel:+212751780853',
-      description: 'Call me during business hours',
-      ariaLabel: 'Call +212 751-780853'
+      link: 'https://wa.me/212751780853',
+      description: 'Message me directly on WhatsApp',
+      ariaLabel: 'Message +212 751-780853 on WhatsApp'
     },
     {
       icon: MapPin,

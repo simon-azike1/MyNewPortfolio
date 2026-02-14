@@ -215,10 +215,15 @@ const Hero = () => {
                     <Mail size={16} className="text-theme-accent-primary" />
                     <span>azikeshinye@gmail.com</span>
                   </div>
-                  <div className="flex items-center gap-3 text-theme-text-secondary">
+                  <a
+                    href="https://wa.me/212751780853"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-theme-text-secondary hover:text-theme-accent-primary transition-colors"
+                  >
                     <Phone size={16} className="text-theme-accent-primary" />
                     <span>+212 751-780853</span>
-                  </div>
+                  </a>
                   <div className="flex items-center gap-3 text-theme-text-secondary">
                     <MapPin size={16} className="text-theme-accent-primary" />
                     <span>Sale Rabat, Morocco</span>
