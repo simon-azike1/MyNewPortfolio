@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X, ExternalLink, Github } from 'lucide-react';
 import { projectsAPI, adminProjectsAPI } from '../../../services/api';
+import { useI18n } from '../../../context/I18nContext';
 
 const ProjectsManager = ({ quickAction }) => {
+  const { t } = useI18n();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -31,7 +33,7 @@ const ProjectsManager = ({ quickAction }) => {
       setProjects(data);
     } catch (error) {
       console.error('Error fetching projects:', error);
-      alert('Failed to load projects. Make sure the server is running.');
+      alert(t('admin.alerts.projectLoadFailed'));
     } finally {
       setLoading(false);
     }
@@ -53,13 +55,13 @@ const ProjectsManager = ({ quickAction }) => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this project?')) {
+    if (window.confirm(t('admin.alerts.projectDeleteConfirm'))) {
       try {
         await adminProjectsAPI.delete(id);
         setProjects(projects.filter(p => p._id !== id));
       } catch (error) {
         console.error('Error deleting project:', error);
-        alert('Failed to delete project');
+        alert(t('admin.alerts.projectDeleteFailed'));
       }
     }
   };
@@ -100,7 +102,7 @@ const ProjectsManager = ({ quickAction }) => {
       });
     } catch (error) {
       console.error('Error saving project:', error);
-      alert('Failed to save project');
+      alert(t('admin.alerts.projectSaveFailed'));
     }
   };
 
@@ -130,24 +132,24 @@ const ProjectsManager = ({ quickAction }) => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-theme-text-primary">Projects Management</h2>
-          <p className="text-theme-text-secondary">Manage your portfolio projects</p>
+          <h2 className="text-2xl font-bold text-theme-text-primary">{t('admin.projects.title')}</h2>
+          <p className="text-theme-text-secondary">{t('admin.projects.subtitle')}</p>
         </div>
         <button
           onClick={handleAddNew}
           className="btn btn-primary"
         >
           <Plus size={20} />
-          Add Project
+          {t('admin.projects.add')}
         </button>
       </div>
 
       {/* Projects List */}
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-12 text-theme-text-tertiary">Loading projects...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">{t('admin.projects.loading')}</div>
         ) : projects.length === 0 ? (
-          <div className="text-center py-12 text-theme-text-tertiary">No projects yet. Add your first project!</div>
+          <div className="text-center py-12 text-theme-text-tertiary">{t('admin.projects.empty')}</div>
         ) : (
           projects.map((project) => (
             <motion.div
@@ -165,7 +167,7 @@ const ProjectsManager = ({ quickAction }) => {
                     </span>
                     {project.featured && (
                       <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full text-sm border border-theme">
-                        Featured
+                        {t('admin.projects.featured')}
                       </span>
                     )}
                   </div>
@@ -189,7 +191,7 @@ const ProjectsManager = ({ quickAction }) => {
                         className="flex items-center gap-1 text-theme-accent-primary hover:underline"
                       >
                         <ExternalLink size={16} />
-                        Live Demo
+                        {t('admin.projects.liveDemo')}
                       </a>
                     )}
                     {project.githubUrl && (
@@ -200,7 +202,7 @@ const ProjectsManager = ({ quickAction }) => {
                         className="flex items-center gap-1 text-theme-accent-primary hover:underline"
                       >
                         <Github size={16} />
-                        Source Code
+                        {t('admin.projects.sourceCode')}
                       </a>
                     )}
                   </div>
@@ -244,7 +246,7 @@ const ProjectsManager = ({ quickAction }) => {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-bold text-theme-text-primary">
-                  {editingProject ? 'Edit Project' : 'Add New Project'}
+                  {editingProject ? t('admin.projects.edit') : t('admin.projects.addNew')}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
@@ -258,7 +260,7 @@ const ProjectsManager = ({ quickAction }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                      Project Title *
+                      {t('admin.projects.formTitle')} *
                     </label>
                     <input
                       type="text"
@@ -270,7 +272,7 @@ const ProjectsManager = ({ quickAction }) => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                      Category *
+                      {t('admin.projects.formCategory')} *
                     </label>
                     <select
                       value={formData.category}
@@ -278,17 +280,17 @@ const ProjectsManager = ({ quickAction }) => {
                       className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                       required
                     >
-                      <option value="web">Web</option>
-                      <option value="mobile">Mobile</option>
-                      <option value="design">Design</option>
-                      <option value="other">Other</option>
+                      <option value="web">{t('admin.projects.categoryWeb')}</option>
+                      <option value="mobile">{t('admin.projects.categoryMobile')}</option>
+                      <option value="design">{t('admin.projects.categoryDesign')}</option>
+                      <option value="other">{t('admin.projects.categoryOther')}</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Description *
+                    {t('admin.projects.formDescription')} *
                   </label>
                   <textarea
                     value={formData.description}
@@ -301,41 +303,41 @@ const ProjectsManager = ({ quickAction }) => {
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Image URL *
+                    {t('admin.projects.formImage')} *
                   </label>
-                  <input
-                    type="url"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                    placeholder="https://..."
-                    required
-                  />
+                    <input
+                      type="url"
+                      value={formData.image}
+                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
+                      placeholder={t('admin.projects.placeholderImage')}
+                      required
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                      Live URL
+                      {t('admin.projects.formLive')}
                     </label>
                     <input
                       type="url"
                       value={formData.liveUrl}
                       onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
                       className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                      placeholder="https://..."
+                      placeholder={t('admin.projects.placeholderLive')}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                      GitHub URL
+                      {t('admin.projects.formGithub')}
                     </label>
                     <input
                       type="url"
                       value={formData.githubUrl}
                       onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
                       className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                      placeholder="https://github.com/..."
+                      placeholder={t('admin.projects.placeholderGithub')}
                     />
                   </div>
                 </div>
@@ -343,14 +345,14 @@ const ProjectsManager = ({ quickAction }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                      Technologies (comma separated) *
+                      {t('admin.projects.formTech')} *
                     </label>
                     <input
                       type="text"
                       value={formData.technologies}
                       onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
                       className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                      placeholder="React, Node.js, MongoDB"
+                      placeholder={t('admin.projects.placeholderTech')}
                       required
                     />
                   </div>
@@ -363,7 +365,7 @@ const ProjectsManager = ({ quickAction }) => {
                       className="w-4 h-4 text-theme-accent-primary focus:ring-2 focus:ring-theme-accent-primary border-theme rounded"
                     />
                     <label htmlFor="featured" className="ml-2 text-sm font-medium text-theme-text-primary">
-                      Mark as Featured Project
+                      {t('admin.projects.formFeatured')}
                     </label>
                   </div>
                 </div>
@@ -371,14 +373,14 @@ const ProjectsManager = ({ quickAction }) => {
                 <div className="flex gap-3 pt-4">
                   <button type="submit" className="flex-1 btn btn-primary">
                     <Save size={20} />
-                    {editingProject ? 'Update Project' : 'Add Project'}
+                    {editingProject ? t('admin.projects.submitUpdate') : t('admin.projects.submitAdd')}
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
                     className="flex-1 btn btn-outline"
                   >
-                    Cancel
+                    {t('admin.projects.cancel')}
                   </button>
                 </div>
               </form>

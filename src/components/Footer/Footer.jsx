@@ -8,12 +8,14 @@ import {
   Mail,
   Code
 } from 'lucide-react'
+import { useI18n } from '../../context/I18nContext'
 
 const Footer = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [currentYear] = useState(new Date().getFullYear())
+  const { t } = useI18n()
 
   // Hide footer on admin pages
   if (location.pathname.startsWith('/admin')) {
@@ -60,10 +62,10 @@ const Footer = () => {
 
   // Quick links data
   const quickLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' }
+    { name: t('nav.about'), href: '#about' },
+    { name: t('nav.projects'), href: '#projects' },
+    { name: t('nav.skills'), href: '#skills' },
+    { name: t('nav.contact'), href: '#contact' }
   ]
 
   // Tech stack data
@@ -93,8 +95,7 @@ const Footer = () => {
                   <span className="text-2xl font-bold text-theme-accent-primary">SimZik</span>
                 </a>
                 <p className="text-theme-text-secondary leading-relaxed">
-                  Crafting digital experiences with passion and precision.
-                  Transforming ideas into reality.
+                  {t('footer.tagline')}
                 </p>
               </motion.div>
 
@@ -106,7 +107,7 @@ const Footer = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-bold text-lg text-theme-text-primary">Quick Links</h3>
+                <h3 className="font-bold text-lg text-theme-text-primary">{t('footer.quickLinks')}</h3>
                 <div className="flex flex-col gap-2">
                   {quickLinks.map((link, index) => (
                     <motion.a
@@ -133,7 +134,7 @@ const Footer = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-bold text-lg text-theme-text-primary">Connect</h3>
+                <h3 className="font-bold text-lg text-theme-text-primary">{t('footer.connect')}</h3>
                 <div className="flex gap-4">
                   {socialLinks.map((social, index) => (
                     <motion.a
@@ -180,7 +181,7 @@ const Footer = () => {
 
               <div className="flex items-center gap-2 text-sm text-theme-text-tertiary">
                 <Code size={14} />
-                <span className="text-theme-text-primary">Built with:</span>
+                <span className="text-theme-text-primary">{t('footer.builtWith')}</span>
                 <div className="flex gap-2">
                   {techStack.map((tech, index) => (
                     <motion.span
@@ -213,7 +214,7 @@ const Footer = () => {
             exit={{ opacity: 0, scale: 0 }}
             whileHover={{ y: -4, scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            aria-label="Scroll to top"
+            aria-label={t('footer.scrollTop')}
           >
             <ArrowUp size={24} />
           </motion.button>

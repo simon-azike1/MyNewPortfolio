@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { skillsAPI } from '../../services/api';
+import { useI18n } from '../../context/I18nContext';
 
 const Skills = () => {
+  const { t } = useI18n();
   const [activeCategory, setActiveCategory] = useState('all');
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'frontend', name: 'Frontend' },
-    { id: 'backend', name: 'Backend' },
-    { id: 'tools', name: 'Tools' }
+    { id: 'all', name: t('skills.categories.all') },
+    { id: 'frontend', name: t('skills.categories.frontend') },
+    { id: 'backend', name: t('skills.categories.backend') },
+    { id: 'tools', name: t('skills.categories.tools') }
   ];
 
   useEffect(() => {
@@ -56,10 +58,10 @@ const Skills = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
-            Skills & <span className="text-theme-accent-primary">Technologies</span>
+            {t('skills.title')}
           </h2>
           <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
-            Technical expertise across frontend, backend, and development tools.
+            {t('skills.subtitle')}
           </p>
         </motion.div>
 
@@ -82,9 +84,9 @@ const Skills = () => {
 
         {/* Skills Grid */}
         {loading ? (
-          <div className="text-center py-12 text-theme-text-tertiary">Loading skills...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">{t('skills.loading')}</div>
         ) : filteredSkills.length === 0 ? (
-          <div className="text-center py-12 text-theme-text-tertiary">No skills available yet.</div>
+          <div className="text-center py-12 text-theme-text-tertiary">{t('skills.empty')}</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSkills.map((skill, index) => (

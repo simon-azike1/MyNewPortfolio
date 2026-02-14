@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import { skillsAPI, adminSkillsAPI } from '../../../services/api';
+import { useI18n } from '../../../context/I18nContext';
 
 const SkillsManager = ({ quickAction }) => {
+  const { t } = useI18n();
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +29,7 @@ const SkillsManager = ({ quickAction }) => {
       setSkills(data);
     } catch (error) {
       console.error('Error fetching skills:', error);
-      alert('Failed to load skills');
+      alert(t('admin.alerts.skillLoadFailed'));
     } finally {
       setLoading(false);
     }
@@ -46,13 +48,13 @@ const SkillsManager = ({ quickAction }) => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this skill?')) {
+    if (window.confirm(t('admin.alerts.skillDeleteConfirm'))) {
       try {
         await adminSkillsAPI.delete(id);
         setSkills(skills.filter(s => s._id !== id));
       } catch (error) {
         console.error('Error deleting skill:', error);
-        alert('Failed to delete skill');
+        alert(t('admin.alerts.skillDeleteFailed'));
       }
     }
   };
@@ -87,7 +89,7 @@ const SkillsManager = ({ quickAction }) => {
       });
     } catch (error) {
       console.error('Error saving skill:', error);
-      alert('Failed to save skill');
+      alert(t('admin.alerts.skillSaveFailed'));
     }
   };
 
@@ -124,21 +126,21 @@ const SkillsManager = ({ quickAction }) => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-theme-text-primary">Skills Management</h2>
-          <p className="text-theme-text-secondary">Manage your technical skills</p>
+          <h2 className="text-2xl font-bold text-theme-text-primary">{t('admin.skillsManage.title')}</h2>
+          <p className="text-theme-text-secondary">{t('admin.skillsManage.subtitle')}</p>
         </div>
         <button onClick={handleAddNew} className="btn btn-primary">
           <Plus size={20} />
-          Add Skill
+          {t('admin.skillsManage.add')}
         </button>
       </div>
 
       {/* Skills Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {loading ? (
-          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">Loading skills...</div>
+          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">{t('admin.skillsManage.loading')}</div>
         ) : skills.length === 0 ? (
-          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">No skills yet. Add your first skill!</div>
+          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">{t('admin.skillsManage.empty')}</div>
         ) : (
           skills.map((skill) => (
             <motion.div
@@ -205,7 +207,7 @@ const SkillsManager = ({ quickAction }) => {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-bold text-theme-text-primary">
-                  {editingSkill ? 'Edit Skill' : 'Add New Skill'}
+                  {editingSkill ? t('admin.skillsManage.edit') : t('admin.skillsManage.addNew')}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
@@ -218,21 +220,21 @@ const SkillsManager = ({ quickAction }) => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Skill Name *
+                    {t('admin.skillsManage.formName')} *
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                    placeholder="e.g., React.js"
+                    placeholder={t('admin.skillsManage.placeholderName')}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Category *
+                    {t('admin.skillsManage.formCategory')} *
                   </label>
                   <select
                     value={formData.category}
@@ -240,15 +242,15 @@ const SkillsManager = ({ quickAction }) => {
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     required
                   >
-                    <option value="frontend">Frontend</option>
-                    <option value="backend">Backend</option>
-                    <option value="tools">Tools</option>
+                    <option value="frontend">{t('admin.skillsManage.categoryFrontend')}</option>
+                    <option value="backend">{t('admin.skillsManage.categoryBackend')}</option>
+                    <option value="tools">{t('admin.skillsManage.categoryTools')}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Level *
+                    {t('admin.skillsManage.formLevel')} *
                   </label>
                   <select
                     value={formData.level}
@@ -256,16 +258,16 @@ const SkillsManager = ({ quickAction }) => {
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
                     required
                   >
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                    <option value="Expert">Expert</option>
+                    <option value="Beginner">{t('admin.skillsManage.levelBeginner')}</option>
+                    <option value="Intermediate">{t('admin.skillsManage.levelIntermediate')}</option>
+                    <option value="Advanced">{t('admin.skillsManage.levelAdvanced')}</option>
+                    <option value="Expert">{t('admin.skillsManage.levelExpert')}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Proficiency: {formData.percentage}%
+                    {t('admin.skillsManage.formProficiency')}: {formData.percentage}%
                   </label>
                   <input
                     type="range"
@@ -279,14 +281,14 @@ const SkillsManager = ({ quickAction }) => {
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Experience *
+                    {t('admin.skillsManage.formExperience')} *
                   </label>
                   <input
                     type="text"
                     value={formData.experience}
                     onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                    placeholder="e.g., 2+ years"
+                    placeholder={t('admin.skillsManage.placeholderExperience')}
                     required
                   />
                 </div>
@@ -294,14 +296,14 @@ const SkillsManager = ({ quickAction }) => {
                 <div className="flex gap-3 pt-4">
                   <button type="submit" className="flex-1 btn btn-primary">
                     <Save size={20} />
-                    {editingSkill ? 'Update Skill' : 'Add Skill'}
+                    {editingSkill ? t('admin.skillsManage.submitUpdate') : t('admin.skillsManage.submitAdd')}
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
                     className="flex-1 btn btn-outline"
                   >
-                    Cancel
+                    {t('admin.skillsManage.cancel')}
                   </button>
                 </div>
               </form>

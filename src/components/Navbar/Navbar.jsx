@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, Download, Github, Linkedin, Twitter, Sun, Moon } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Twitter, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import logo from '../../assets/logo.png';
+import { useI18n } from '../../context/I18nContext';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useI18n();
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -17,11 +20,11 @@ const Navbar = () => {
   if (location.pathname.startsWith('/admin')) return null;
 
   const navItems = [
-    { id: 'home', name: 'Home' },
-    { id: 'about', name: 'About' },
-    { id: 'skills', name: 'Skills' },
-    { id: 'projects', name: 'Projects' },
-    { id: 'contact', name: 'Contact' }
+    { id: 'home', name: t('nav.home') },
+    { id: 'about', name: t('nav.about') },
+    { id: 'skills', name: t('nav.skills') },
+    { id: 'projects', name: t('nav.projects') },
+    { id: 'contact', name: t('nav.contact') }
   ];
 
   const socialLinks = [
@@ -61,13 +64,6 @@ const Navbar = () => {
     const el = document.getElementById(id);
     if (!el) return;
     window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
-  };
-
-  const handleResumeDownload = () => {
-    const link = document.createElement('a');
-    link.href = '/Azike_Simon_Software_Engineer.pdf';
-    link.download = 'Azike_Simon_Software_Engineer.pdf';
-    link.click();
   };
 
   // Close mobile menu when clicking outside
@@ -145,19 +141,21 @@ const Navbar = () => {
                 </a>
               ))}
 
+              <LanguageSwitcher
+                value={language}
+                onChange={setLanguage}
+                label={t('nav.language')}
+              />
+
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 className="w-10 h-10 rounded-lg bg-theme-bg-secondary border border-theme flex items-center justify-center text-theme-text-primary"
+                aria-label={theme === 'light' ? t('nav.darkMode') : t('nav.lightMode')}
               >
                 {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
               </button>
 
-              {/* Resume */}
-              <button onClick={handleResumeDownload} className="btn btn-primary">
-                <Download size={16} />
-                Resume
-              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -167,7 +165,7 @@ const Navbar = () => {
                 e.stopPropagation();
                 setIsOpen(!isOpen);
               }}
-              aria-label="Toggle mobile menu"
+              aria-label={t('nav.toggleMenu')}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -200,19 +198,31 @@ const Navbar = () => {
                 {theme === 'dark' ? (
                   <>
                     <Sun size={18} />
-                    <span>Light Mode</span>
+                    <span>{t('nav.lightMode')}</span>
                   </>
                 ) : (
                   <>
                     <Moon size={18} />
-                    <span>Dark Mode</span>
+                    <span>{t('nav.darkMode')}</span>
                   </>
                 )}
               </button>
 
+              <div className="pt-4 border-t border-theme">
+                <p className="block text-sm text-theme-text-tertiary mb-3">
+                  {t('nav.language')}
+                </p>
+                <LanguageSwitcher
+                  value={language}
+                  onChange={setLanguage}
+                  label={t('nav.language')}
+                  fullWidth
+                />
+              </div>
+
               {/* Mobile Social Links */}
               <div className="pt-4 border-t border-theme">
-                <p className="text-sm text-theme-text-tertiary mb-3">Connect with me</p>
+                <p className="text-sm text-theme-text-tertiary mb-3">{t('nav.connect')}</p>
                 <div className="flex gap-3">
                   {socialLinks.map(({ name, icon: Icon, url }) => (
                     <a
@@ -229,14 +239,6 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Mobile Resume */}
-              <button
-                onClick={handleResumeDownload}
-                className="w-full btn btn-primary"
-              >
-                <Download size={18} />
-                Download Resume
-              </button>
             </div>
           </div>
         )}

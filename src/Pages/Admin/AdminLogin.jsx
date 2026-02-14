@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { authAPI } from '../../services/api';
+import { useI18n } from '../../context/I18nContext';
 
 const AdminLogin = ({ onLogin }) => {
+  const { t } = useI18n();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +26,7 @@ const AdminLogin = ({ onLogin }) => {
         setError(response.message || 'Invalid email or password');
       }
     } catch (error) {
-      setError('Login failed. Please try again.');
+      setError(t('admin.loginError'));
       console.error('Login error:', error);
     } finally {
       setLoading(false);
@@ -45,8 +47,8 @@ const AdminLogin = ({ onLogin }) => {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-theme-accent-primary rounded-full mb-4">
               <Lock size={32} className="text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-theme-text-primary mb-2">Admin Panel</h1>
-            <p className="text-theme-text-secondary">Sign in to manage your portfolio</p>
+            <h1 className="text-3xl font-bold text-theme-text-primary mb-2">{t('admin.loginTitle')}</h1>
+            <p className="text-theme-text-secondary">{t('admin.loginSubtitle')}</p>
           </div>
 
           {/* Login Form */}
@@ -54,7 +56,7 @@ const AdminLogin = ({ onLogin }) => {
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-theme-text-primary mb-2">
-                Email Address
+                {t('admin.loginEmail')}
               </label>
               <div className="relative">
                 <Mail size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-theme-text-tertiary" />
@@ -64,7 +66,7 @@ const AdminLogin = ({ onLogin }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary focus:border-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                  placeholder="Enter your email"
+                  placeholder={t('contact.placeholderEmail')}
                   required
                 />
               </div>
@@ -73,7 +75,7 @@ const AdminLogin = ({ onLogin }) => {
             {/* Password Field */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-theme-text-primary mb-2">
-                Password
+                {t('admin.loginPassword')}
               </label>
               <div className="relative">
                 <Lock size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-theme-text-tertiary" />
@@ -83,7 +85,7 @@ const AdminLogin = ({ onLogin }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-10 pr-12 py-3 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary focus:border-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                  placeholder="Enter your password"
+                  placeholder={t('admin.loginPassword')}
                   required
                 />
                 <button
@@ -113,16 +115,16 @@ const AdminLogin = ({ onLogin }) => {
               disabled={loading}
               className="w-full btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? t('admin.loginLoading') : t('admin.loginButton')}
             </button>
           </form>
 
           {/* Admin Info */}
           <div className="mt-6 p-4 bg-theme-bg-secondary rounded-lg border border-theme">
             <p className="text-sm text-theme-text-secondary text-center">
-              <span className="font-medium">Admin Access Only</span>
+              <span className="font-medium">{t('admin.loginInfoTitle')}</span>
               <br />
-              Use your registered credentials to sign in
+              {t('admin.loginInfoBody')}
             </p>
           </div>
         </div>

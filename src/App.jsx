@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import { ThemeProvider } from './context/ThemeContext';
+import { I18nProvider } from './context/I18nContext';
 
 function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
@@ -43,8 +44,9 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
-        <Routes>
+      <I18nProvider>
+        <Router>
+          <Routes>
           {/* Portfolio Routes */}
           <Route path="/" element={<PortfolioPage />} />
 
@@ -74,8 +76,9 @@ function App() {
 
           {/* Catch all - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </I18nProvider>
     </ThemeProvider>
   );
 }

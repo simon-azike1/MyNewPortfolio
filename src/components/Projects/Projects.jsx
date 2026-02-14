@@ -5,8 +5,10 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { projectsAPI } from '../../services/api';
+import { useI18n } from '../../context/I18nContext';
 
 const Projects = () => {
+  const { t } = useI18n();
   const [selectedProject, setSelectedProject] = useState(null);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,7 +47,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-24 bg-theme-bg-secondary" aria-label="Portfolio Projects">
+    <section id="projects" className="py-24 bg-theme-bg-secondary" aria-label={t('projects.sectionLabel')}>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-20 items-start">
           {/* Header */}
@@ -57,25 +59,25 @@ const Projects = () => {
             className="lg:sticky lg:top-28"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
-              Selected <span className="text-theme-accent-primary">Work</span>
+              {t('projects.title')}
             </h2>
             <p className="text-lg text-theme-text-secondary max-w-2xl">
-              A curated selection of projects showcasing web development expertise across frontend and full-stack solutions.
+              {t('projects.subtitle')}
             </p>
             <div className="mt-6 space-y-4 text-theme-text-secondary">
-              <p className="text-sm uppercase tracking-[0.2em] text-theme-text-tertiary">What you will find</p>
+              <p className="text-sm uppercase tracking-[0.2em] text-theme-text-tertiary">{t('projects.metaTitle')}</p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="mt-2 h-2 w-2 rounded-full bg-theme-accent-primary"></span>
-                  <span>Product-focused builds with clean UX and maintainable architecture.</span>
+                  <span>{t('projects.metaOne')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-2 h-2 w-2 rounded-full bg-theme-accent-primary"></span>
-                  <span>Full-stack integrations, APIs, and performance-focused optimizations.</span>
+                  <span>{t('projects.metaTwo')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-2 h-2 w-2 rounded-full bg-theme-accent-primary"></span>
-                  <span>Production-ready designs and documentation for smooth handoffs.</span>
+                  <span>{t('projects.metaThree')}</span>
                 </li>
               </ul>
             </div>
@@ -84,9 +86,9 @@ const Projects = () => {
           {/* Projects */}
           <div>
             {loading ? (
-              <div className="text-center py-12 text-theme-text-tertiary">Loading projects...</div>
+              <div className="text-center py-12 text-theme-text-tertiary">{t('projects.loading')}</div>
             ) : projects.length === 0 ? (
-              <div className="text-center py-12 text-theme-text-tertiary">No projects available yet.</div>
+              <div className="text-center py-12 text-theme-text-tertiary">{t('projects.empty')}</div>
             ) : (
               <motion.div
                 variants={containerVariants}
@@ -140,9 +142,9 @@ const Projects = () => {
                     <div className="p-6 space-y-4">
                       <div className="flex items-center justify-between text-sm">
                         <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-primary rounded-full font-medium border border-theme">{project.category}</span>
-                        {project.featured && (
-                          <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full font-medium border border-theme">Featured</span>
-                        )}
+                  {project.featured && (
+                    <span className="px-3 py-1 bg-theme-bg-tertiary text-theme-accent-secondary rounded-full font-medium border border-theme">{t('projects.featured')}</span>
+                  )}
                       </div>
 
                       <h3 className="text-xl font-bold text-theme-text-primary">{project.title}</h3>
@@ -207,17 +209,17 @@ const Projects = () => {
                       {selectedProject.featured && (
                         <>
                           <span>•</span>
-                          <span className="text-theme-accent-secondary">Featured</span>
+                          <span className="text-theme-accent-secondary">{t('projects.featured')}</span>
                         </>
                       )}
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="text-xl font-bold text-theme-text-primary">Overview</h4>
+                    <h4 className="text-xl font-bold text-theme-text-primary">{t('projects.overview')}</h4>
                     <p className="text-theme-text-secondary leading-relaxed">{selectedProject.description}</p>
 
-                    <h4 className="text-xl font-bold text-theme-text-primary pt-4">Technologies</h4>
+                    <h4 className="text-xl font-bold text-theme-text-primary pt-4">{t('projects.technologies')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.technologies.map((tech, index) => (
                         <span key={index} className="px-4 py-2 bg-theme-bg-secondary text-theme-text-secondary rounded-lg text-sm font-medium border border-theme">
@@ -235,7 +237,7 @@ const Projects = () => {
                           className="btn btn-primary"
                         >
                           <ExternalLink size={18} />
-                          View Live Site
+                          {t('projects.viewLive')}
                         </a>
                       )}
                       {selectedProject.githubUrl && (
@@ -246,7 +248,7 @@ const Projects = () => {
                         className="btn btn-outline"
                       >
                         <Github size={18} />
-                        View Code
+                        {t('projects.viewCode')}
                       </a>
                       )}
                     </div>

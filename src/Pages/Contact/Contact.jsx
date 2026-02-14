@@ -13,6 +13,7 @@ import {
   XCircle,
   Youtube
 } from 'lucide-react';
+import { useI18n } from '../../context/I18nContext';
 
 // EmailJS Configuration (moved to constants for better maintainability)
 const EMAILJS_CONFIG = {
@@ -22,6 +23,7 @@ const EMAILJS_CONFIG = {
 };
 
 const Contact = () => {
+  const { t } = useI18n();
   const form = useRef();
   const [formStatus, setFormStatus] = useState('idle'); // idle, loading, success, error
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,29 +34,31 @@ const Contact = () => {
   });
   const [fieldErrors, setFieldErrors] = useState({});
 
+  const whatsappMessage = encodeURIComponent(t('contact.whatsappMessage'));
+
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email',
+      title: t('contact.infoEmail'),
       value: 'azikeshinye@gmail.com',
       link: 'mailto:azikeshinye@gmail.com',
-      description: 'Send me an email anytime',
+      description: t('contact.infoEmailDesc'),
       ariaLabel: 'Send email to azikeshinye@gmail.com'
     },
     {
       icon: Phone,
-      title: 'Phone',
+      title: t('contact.infoPhone'),
       value: '+212 751-780853',
-      link: 'https://wa.me/212751780853?text=Hello%20Simon%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%20Are%20you%20available%20for%20a%20quick%20chat%3F',
-      description: 'Message me directly on WhatsApp',
+      link: `https://wa.me/212751780853?text=${whatsappMessage}`,
+      description: t('contact.infoPhoneDesc'),
       ariaLabel: 'Message +212 751-780853 on WhatsApp'
     },
     {
       icon: MapPin,
-      title: 'Location',
+      title: t('contact.infoLocation'),
       value: 'Sale, Rabat, Morocco',
       link: 'https://maps.google.com/?q=Sale,Rabat,Morocco',
-      description: 'Based in Morocco, available globally',
+      description: t('contact.infoLocationDesc'),
       ariaLabel: 'View Sale, Rabat, Morocco on Google Maps'
     }
   ];
@@ -98,15 +102,15 @@ const Contact = () => {
     const errors = {};
 
     if (!validateName(formData.user_name)) {
-      errors.user_name = 'Name must be at least 2 characters long';
+      errors.user_name = t('forms.invalidName');
     }
 
     if (!validateEmail(formData.user_email)) {
-      errors.user_email = 'Please enter a valid email address';
+      errors.user_email = t('forms.invalidEmail');
     }
 
     if (!validateMessage(formData.message)) {
-      errors.message = 'Message must be at least 10 characters long';
+      errors.message = t('forms.invalidMessage');
     }
 
     setFieldErrors(errors);
@@ -160,13 +164,13 @@ const Contact = () => {
       
       // Set user-friendly error message
       if (error.text) {
-        setErrorMessage(`Failed to send: ${error.text}`);
+        setErrorMessage(`${t('forms.sendFailed')} ${error.text}`);
       } else if (error.status === 400) {
-        setErrorMessage('Invalid form data. Please check your inputs.');
+        setErrorMessage(t('forms.sendInvalid'));
       } else if (error.status === 401) {
-        setErrorMessage('Authentication failed. Please try again later.');
+        setErrorMessage(t('forms.sendAuth'));
       } else {
-        setErrorMessage('Network error. Please check your connection and try again.');
+        setErrorMessage(t('forms.sendNetwork'));
       }
 
       // Auto-hide error message after 7 seconds
@@ -196,7 +200,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-theme-bg-secondary" aria-label="Contact Information">
+    <section id="contact" className="py-24 bg-theme-bg-secondary" aria-label={t('contact.sectionLabel')}>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.div
@@ -208,10 +212,10 @@ const Contact = () => {
         >
           <div className="max-w-2xl text-left">
             <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
-              Get In <span className="text-theme-accent-primary">Touch</span>
+              {t('contact.title')}
             </h2>
             <p className="text-lg text-theme-text-secondary">
-              Open to discussing new opportunities and project collaborations.
+              {t('contact.subtitle')}
             </p>
           </div>
         </motion.div>
@@ -258,7 +262,7 @@ const Contact = () => {
               variants={itemVariants}
               className="bg-theme-card rounded-xl p-6 border border-theme"
             >
-              <h3 className="text-xl font-bold text-theme-text-primary mb-4">Connect</h3>
+              <h3 className="text-xl font-bold text-theme-text-primary mb-4">{t('contact.connectTitle')}</h3>
               <div className="flex flex-wrap gap-4" role="navigation" aria-label="Social media links">
                 {socialLinks.map(({ icon: Icon, name, url, ariaLabel }) => (
                   <motion.a
@@ -288,9 +292,9 @@ const Contact = () => {
             className="bg-theme-card rounded-2xl p-8 shadow-lg border border-theme"
           >
             <div className="mb-8">
-              <h3 className="text-2xl font-bold text-theme-text-primary mb-2">Send a Message</h3>
+              <h3 className="text-2xl font-bold text-theme-text-primary mb-2">{t('contact.sendTitle')}</h3>
               <p className="text-theme-text-secondary">
-                Have a project in mind? Let's discuss how we can work together.
+                {t('contact.sendSubtitle')}
               </p>
             </div>
 
@@ -299,12 +303,12 @@ const Contact = () => {
               onSubmit={handleSubmit}
               className="space-y-6"
               noValidate
-              aria-label="Contact form"
+              aria-label={t('contact.formLabel')}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="user_name" className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Full Name <span className="text-red-500" aria-label="required">*</span>
+                    {t('contact.fullName')} <span className="text-red-500" aria-label={t('contact.required')}>*</span>
                   </label>
                   <input
                     type="text"
@@ -317,7 +321,7 @@ const Contact = () => {
                         ? 'border-red-300 focus:ring-red-200'
                         : 'border-theme focus:ring-theme-accent-primary focus:border-theme-accent-primary'
                     }`}
-                    placeholder="Enter your full name"
+                    placeholder={t('contact.placeholderName')}
                     required
                     disabled={formStatus === 'loading'}
                     aria-invalid={!!fieldErrors.user_name}
@@ -332,7 +336,7 @@ const Contact = () => {
 
                 <div>
                   <label htmlFor="user_email" className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Email Address <span className="text-red-500" aria-label="required">*</span>
+                    {t('contact.email')} <span className="text-red-500" aria-label={t('contact.required')}>*</span>
                   </label>
                   <input
                     type="email"
@@ -345,7 +349,7 @@ const Contact = () => {
                         ? 'border-red-300 focus:ring-red-200'
                         : 'border-theme focus:ring-theme-accent-primary focus:border-theme-accent-primary'
                     }`}
-                    placeholder="your.email@example.com"
+                    placeholder={t('contact.placeholderEmail')}
                     required
                     disabled={formStatus === 'loading'}
                     aria-invalid={!!fieldErrors.user_email}
@@ -361,7 +365,7 @@ const Contact = () => {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-theme-text-primary mb-2">
-                  Message <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.message')} <span className="text-red-500" aria-label={t('contact.required')}>*</span>
                 </label>
                 <textarea
                   id="message"
@@ -373,7 +377,7 @@ const Contact = () => {
                       ? 'border-red-300 focus:ring-red-200'
                       : 'border-theme focus:ring-theme-accent-primary focus:border-theme-accent-primary'
                   }`}
-                  placeholder="Tell me about your project, ideas, or just say hello..."
+                  placeholder={t('contact.placeholderMessage')}
                   rows="6"
                   required
                   disabled={formStatus === 'loading'}
@@ -386,7 +390,7 @@ const Contact = () => {
                   </span>
                 )}
                 <span className="text-sm text-theme-text-tertiary mt-1 block" aria-live="polite">
-                  {formData.message.length} characters
+                  {formData.message.length} {t('contact.count')}
                 </span>
               </div>
 
@@ -415,10 +419,10 @@ const Contact = () => {
                 {formStatus === 'idle' && <Send size={18} aria-hidden="true" />}
 
                 <span>
-                  {formStatus === 'loading' && 'Sending...'}
-                  {formStatus === 'success' && 'Message Sent!'}
-                  {formStatus === 'error' && 'Try Again'}
-                  {formStatus === 'idle' && 'Send Message'}
+                  {formStatus === 'loading' && t('contact.sending')}
+                  {formStatus === 'success' && t('contact.sent')}
+                  {formStatus === 'error' && t('contact.retry')}
+                  {formStatus === 'idle' && t('contact.submit')}
                 </span>
               </motion.button>
             </form>
@@ -436,8 +440,8 @@ const Contact = () => {
                 >
                   <CheckCircle size={20} className="text-theme-accent-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="flex-1">
-                    <h4 className="font-bold text-theme-text-primary">Message sent successfully!</h4>
-                    <p className="text-sm text-theme-text-secondary">Thank you for reaching out. I'll get back to you soon.</p>
+                    <h4 className="font-bold text-theme-text-primary">{t('contact.successTitle')}</h4>
+                    <p className="text-sm text-theme-text-secondary">{t('contact.successBody')}</p>
                   </div>
                   <button
                     onClick={handleDismissMessage}
@@ -460,9 +464,9 @@ const Contact = () => {
                 >
                   <AlertCircle size={20} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="flex-1">
-                    <h4 className="font-bold text-red-900 dark:text-red-100">Something went wrong</h4>
+                    <h4 className="font-bold text-red-900 dark:text-red-100">{t('contact.errorTitle')}</h4>
                     <p className="text-sm text-red-700 dark:text-red-300">
-                      {errorMessage || 'Please try again or contact me directly via email.'}
+                      {errorMessage || t('contact.errorBody')}
                     </p>
                   </div>
                   <button
@@ -486,8 +490,8 @@ const Contact = () => {
           viewport={{ once: true }}
           className="mt-16 bg-gradient-to-r from-theme-accent-primary to-theme-accent-secondary rounded-2xl p-6 sm:p-12 text-center text-white"
         >
-          <h3 className="text-3xl font-bold mb-4">Ready to start your project?</h3>
-          <p className="text-lg mb-8 text-white/80">Let's discuss your ideas and bring them to life together.</p>
+          <h3 className="text-3xl font-bold mb-4">{t('contact.ctaTitle')}</h3>
+          <p className="text-lg mb-8 text-white/80">{t('contact.ctaBody')}</p>
           <motion.a
             href="mailto:azikeshinye@gmail.com"
             className="inline-flex items-center gap-2 px-8 py-4 bg-theme-bg-primary text-theme-accent-primary rounded-lg font-medium hover:bg-theme-bg-secondary transition-colors shadow-lg"
@@ -497,7 +501,7 @@ const Contact = () => {
             target='_blank'
           >
             <Mail size={18} aria-hidden="true"/>
-            Email Me Directly
+            {t('contact.ctaButton')}
           </motion.a>
         </motion.div>
       </div>

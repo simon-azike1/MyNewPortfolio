@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { testimonialsAPI } from '../../services/api';
+import { useI18n } from '../../context/I18nContext';
 
 const Testimonials = () => {
+  const { t } = useI18n();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +43,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" className="py-24 bg-theme-bg-primary" aria-label="Client Testimonials">
+    <section id="testimonials" className="py-24 bg-theme-bg-primary" aria-label={t('testimonials.sectionLabel')}>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.header
@@ -52,18 +54,18 @@ const Testimonials = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary mb-4">
-            Client <span className="text-theme-accent-primary">Feedback</span>
+            {t('testimonials.title')}
           </h2>
           <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
-            What clients say about working with me
+            {t('testimonials.subtitle')}
           </p>
         </motion.header>
 
         {/* Testimonials Grid */}
         {loading ? (
-          <div className="text-center py-12 text-theme-text-tertiary">Loading testimonials...</div>
+          <div className="text-center py-12 text-theme-text-tertiary">{t('testimonials.loading')}</div>
         ) : testimonials.length === 0 ? (
-          <div className="text-center py-12 text-theme-text-tertiary">No testimonials available yet.</div>
+          <div className="text-center py-12 text-theme-text-tertiary">{t('testimonials.empty')}</div>
         ) : (
           <motion.div
             variants={containerVariants}

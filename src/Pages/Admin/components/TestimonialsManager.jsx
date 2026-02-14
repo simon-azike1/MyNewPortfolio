@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, Save, X, Quote } from 'lucide-react';
 import { testimonialsAPI, adminTestimonialsAPI } from '../../../services/api';
+import { useI18n } from '../../../context/I18nContext';
 
 const TestimonialsManager = ({ quickAction }) => {
+  const { t } = useI18n();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -26,7 +28,7 @@ const TestimonialsManager = ({ quickAction }) => {
       setTestimonials(data);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
-      alert('Failed to load testimonials');
+      alert(t('admin.alerts.testimonialLoadFailed'));
     } finally {
       setLoading(false);
     }
@@ -44,13 +46,13 @@ const TestimonialsManager = ({ quickAction }) => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this testimonial?')) {
+    if (window.confirm(t('admin.alerts.testimonialDeleteConfirm'))) {
       try {
         await adminTestimonialsAPI.delete(id);
         setTestimonials(testimonials.filter(t => t._id !== id));
       } catch (error) {
         console.error('Error deleting testimonial:', error);
-        alert('Failed to delete testimonial');
+        alert(t('admin.alerts.testimonialDeleteFailed'));
       }
     }
   };
@@ -83,7 +85,7 @@ const TestimonialsManager = ({ quickAction }) => {
       });
     } catch (error) {
       console.error('Error saving testimonial:', error);
-      alert('Failed to save testimonial');
+      alert(t('admin.alerts.testimonialSaveFailed'));
     }
   };
 
@@ -109,21 +111,21 @@ const TestimonialsManager = ({ quickAction }) => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-theme-text-primary">Testimonials Management</h2>
-          <p className="text-theme-text-secondary">Manage client testimonials and reviews</p>
+          <h2 className="text-2xl font-bold text-theme-text-primary">{t('admin.testimonialsManage.title')}</h2>
+          <p className="text-theme-text-secondary">{t('admin.testimonialsManage.subtitle')}</p>
         </div>
         <button onClick={handleAddNew} className="btn btn-primary">
           <Plus size={20} />
-          Add Testimonial
+          {t('admin.testimonialsManage.add')}
         </button>
       </div>
 
       {/* Testimonials Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {loading ? (
-          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">Loading testimonials...</div>
+          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">{t('admin.testimonialsManage.loading')}</div>
         ) : testimonials.length === 0 ? (
-          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">No testimonials yet. Add your first testimonial!</div>
+          <div className="col-span-2 text-center py-12 text-theme-text-tertiary">{t('admin.testimonialsManage.empty')}</div>
         ) : (
           testimonials.map((testimonial) => (
             <motion.div
@@ -191,7 +193,7 @@ const TestimonialsManager = ({ quickAction }) => {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-bold text-theme-text-primary">
-                  {editingTestimonial ? 'Edit Testimonial' : 'Add New Testimonial'}
+                  {editingTestimonial ? t('admin.testimonialsManage.edit') : t('admin.testimonialsManage.addNew')}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
@@ -204,49 +206,49 @@ const TestimonialsManager = ({ quickAction }) => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Client Name *
+                    {t('admin.testimonialsManage.formName')} *
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                    placeholder="John Doe"
+                    placeholder={t('admin.testimonialsManage.placeholderName')}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Role & Company *
+                    {t('admin.testimonialsManage.formRole')} *
                   </label>
                   <input
                     type="text"
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary bg-theme-bg-primary text-theme-text-primary"
-                    placeholder="CEO, Company Name"
+                    placeholder={t('admin.testimonialsManage.placeholderRole')}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Testimonial *
+                    {t('admin.testimonialsManage.formContent')} *
                   </label>
                   <textarea
                     value={formData.content}
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                     className="w-full px-4 py-2 border border-theme rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-accent-primary resize-none bg-theme-bg-primary text-theme-text-primary"
                     rows="5"
-                    placeholder="Write the testimonial here..."
+                    placeholder={t('admin.testimonialsManage.placeholderContent')}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-theme-text-primary mb-2">
-                    Rating: {formData.rating} stars
+                    {t('admin.testimonialsManage.formRating')}: {formData.rating}
                   </label>
                   <input
                     type="range"
@@ -266,14 +268,14 @@ const TestimonialsManager = ({ quickAction }) => {
                 <div className="flex gap-3 pt-4">
                   <button type="submit" className="flex-1 btn btn-primary">
                     <Save size={20} />
-                    {editingTestimonial ? 'Update' : 'Add Testimonial'}
+                    {editingTestimonial ? t('admin.testimonialsManage.submitUpdate') : t('admin.testimonialsManage.submitAdd')}
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
                     className="flex-1 btn btn-outline"
                   >
-                    Cancel
+                    {t('admin.testimonialsManage.cancel')}
                   </button>
                 </div>
               </form>

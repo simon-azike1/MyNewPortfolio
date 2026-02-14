@@ -3,8 +3,11 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, ChevronDown, Download } from 'lucide-react';
 import profileAbout from '@/assets/Images/profile-about.jpg';
 import profileMain2 from '@/assets/Images/profile-main2.png';
+import { useI18n } from '../../context/I18nContext';
 
 const Hero = () => {
+  const { t } = useI18n();
+  const whatsappMessage = encodeURIComponent(t('contact.whatsappMessage'));
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -67,7 +70,7 @@ const Hero = () => {
             <div className="space-y-8">
               <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-theme-bg-tertiary text-theme-text-secondary text-sm font-medium border border-theme">
                 <span className="h-2 w-2 rounded-full bg-theme-accent-primary"></span>
-                Available for collaborations
+                {t('nav.available')}
               </motion.div>
 
               <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-theme-text-primary leading-tight">
@@ -78,12 +81,11 @@ const Hero = () => {
               </motion.h1>
 
               <motion.div variants={itemVariants} className="text-2xl sm:text-3xl font-medium text-theme-text-secondary">
-                <span>Software & Network Engineer</span>
+                <span>{t('hero.role')}</span>
               </motion.div>
 
               <motion.p variants={itemVariants} className="text-lg text-theme-text-secondary leading-relaxed max-w-2xl">
-                I build secure, efficient, high-performing digital systems. My work blends polished front-end experiences
-                with dependable infrastructure across React, JavaScript, and network technologies.
+                {t('hero.intro')}
               </motion.p>
 
               <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
@@ -91,14 +93,14 @@ const Hero = () => {
                   onClick={() => scrollToSection('projects')}
                   className="btn btn-primary"
                 >
-                  View Work
+                  {t('hero.viewWork')}
                 </button>
 
                 <button
                   onClick={() => scrollToSection('contact')}
                   className="btn btn-secondary"
                 >
-                  Contact
+                  {t('hero.contact')}
                 </button>
 
                 <a
@@ -108,22 +110,22 @@ const Hero = () => {
                   className="btn btn-outline"
                 >
                   <Download size={18} />
-                  Resume
+                  {t('nav.resume')}
                 </a>
               </motion.div>
 
               <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                 <div className="bg-theme-card border border-theme rounded-xl p-4">
                   <span className="text-2xl font-bold text-theme-accent-primary block">2+</span>
-                  <span className="text-sm text-theme-text-tertiary">Years Experience</span>
+                  <span className="text-sm text-theme-text-tertiary">{t('hero.statsYears')}</span>
                 </div>
                 <div className="bg-theme-card border border-theme rounded-xl p-4">
                   <span className="text-2xl font-bold text-theme-accent-primary block">10+</span>
-                  <span className="text-sm text-theme-text-tertiary">Projects Completed</span>
+                  <span className="text-sm text-theme-text-tertiary">{t('hero.statsProjects')}</span>
                 </div>
                 <div className="bg-theme-card border border-theme rounded-xl p-4">
                   <span className="text-2xl font-bold text-theme-accent-primary block">5+</span>
-                  <span className="text-sm text-theme-text-tertiary">Tech Domains</span>
+                  <span className="text-sm text-theme-text-tertiary">{t('hero.statsDomains')}</span>
                 </div>
               </motion.div>
             </div>
@@ -142,13 +144,13 @@ const Hero = () => {
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-theme-accent-primary to-transparent opacity-20"></div>
 
                 <div className="absolute left-2 sm:-left-6 top-6 sm:top-8 bg-theme-card border border-theme rounded-2xl px-4 py-3 shadow-lg">
-                  <p className="text-sm text-theme-text-tertiary">Based in</p>
-                  <p className="font-semibold text-theme-text-primary">Rabat, Morocco</p>
+                  <p className="text-sm text-theme-text-tertiary">{t('hero.basedIn')}</p>
+                  <p className="font-semibold text-theme-text-primary">{t('hero.location')}</p>
                 </div>
 
                 <div className="absolute right-2 sm:-right-6 bottom-6 sm:bottom-8 bg-theme-card border border-theme rounded-2xl px-4 py-3 shadow-lg">
-                  <p className="text-sm text-theme-text-tertiary">Focused on</p>
-                  <p className="font-semibold text-theme-text-primary">Full-Stack Delivery</p>
+                  <p className="text-sm text-theme-text-tertiary">{t('hero.focus')}</p>
+                  <p className="font-semibold text-theme-text-primary">{t('hero.focusValue')}</p>
                 </div>
               </div>
             </motion.div>
@@ -169,7 +171,7 @@ const Hero = () => {
               >
                 <ChevronDown size={20} />
               </motion.div>
-              <span className="text-sm">Scroll to explore</span>
+              <span className="text-sm">{t('hero.scroll')}</span>
             </motion.button>
           </div>
         </div>
@@ -183,12 +185,12 @@ const Hero = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          className="text-center mb-16"
+        >
             <h2 className="text-4xl sm:text-5xl font-bold text-theme-text-primary">
-              About <span className="text-theme-accent-primary">Me</span>
+              {t('about.title')}
             </h2>
-          </motion.div>
+        </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Profile Card */}
@@ -207,8 +209,8 @@ const Hero = () => {
               </div>
 
               <div className="text-center space-y-4">
-                <h3 className="text-2xl font-bold text-theme-text-primary">Simon Azike</h3>
-                <p className="text-lg text-theme-text-secondary">Software Engineer</p>
+                <h3 className="text-2xl font-bold text-theme-text-primary">{t('about.name')}</h3>
+                <p className="text-lg text-theme-text-secondary">{t('about.role')}</p>
 
                 <div className="space-y-3 pt-4">
                   <div className="flex items-center gap-3 text-theme-text-secondary">
@@ -216,7 +218,7 @@ const Hero = () => {
                     <span>azikeshinye@gmail.com</span>
                   </div>
                   <a
-                    href="https://wa.me/212751780853?text=Hello%20Simon%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%20Are%20you%20available%20for%20a%20quick%20chat%3F"
+                    href={`https://wa.me/212751780853?text=${whatsappMessage}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-theme-text-secondary hover:text-theme-accent-primary transition-colors"
@@ -242,25 +244,22 @@ const Hero = () => {
             >
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-theme-text-primary mb-2">My Journey</h3>
+                  <h3 className="text-2xl font-bold text-theme-text-primary mb-2">{t('about.journeyTitle')}</h3>
                   <div className="w-20 h-1 bg-theme-accent-primary"></div>
                 </div>
 
                 <div className="space-y-4 text-theme-text-secondary leading-relaxed">
                   <p>
-                    I discovered my passion for coding shortly after starting at Cardiff Metropolitan University on August 3rd, 2022.
-                    Coming from a high school background in Electrical and Electronics, programming
-                    quickly became more than a skill.
+                    {t('about.journeyText')}
                   </p>
 
                   <details className="about-disclosure rounded-xl border border-theme bg-theme-bg-secondary p-4">
                     <summary className="cursor-pointer text-theme-accent-primary font-medium">
-                      About Cardiff Metropolitan University
+                      {t('about.cardiffTitle')}
                     </summary>
                     <div className="about-disclosure__content mt-3 text-sm text-theme-text-secondary space-y-2">
                       <p>
-                        Cardiff Metropolitan University is a public university in Cardiff, Wales,
-                        known for strong programs in design, technology, and applied research.
+                        {t('about.cardiffBody')}
                       </p>
                       <a
                         href="https://www.cardiffmet.ac.uk/"
@@ -268,15 +267,14 @@ const Hero = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-theme-accent-primary hover:text-theme-accent-hover transition-colors"
                       >
-                        Visit university website
+                        {t('about.cardiffLink')}
                       </a>
                     </div>
                   </details>
 
                   <div className="bg-theme-bg-tertiary p-4 rounded-lg border-l-4 border-theme-accent-primary">
                     <p className="text-theme-text-secondary">
-                      It's now a craft I enjoy, constantly learning and creating solutions
-                      that make an impact.
+                      {t('about.journeyNote')}
                     </p>
                   </div>
                 </div>
@@ -284,15 +282,15 @@ const Hero = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                   <div className="text-center">
                     <span className="text-2xl font-bold text-theme-accent-primary block">2022</span>
-                    <span className="text-sm text-theme-text-tertiary">Started Journey</span>
+                    <span className="text-sm text-theme-text-tertiary">{t('about.statsStart')}</span>
                   </div>
                   <div className="text-center">
                     <span className="text-2xl font-bold text-theme-accent-primary block">20+</span>
-                    <span className="text-sm text-theme-text-tertiary">Skills Learned</span>
+                    <span className="text-sm text-theme-text-tertiary">{t('about.statsSkills')}</span>
                   </div>
                   <div className="text-center">
                     <span className="text-2xl font-bold text-theme-accent-primary block">∞</span>
-                    <span className="text-sm text-theme-text-tertiary">Passion Level</span>
+                    <span className="text-sm text-theme-text-tertiary">{t('about.statsPassion')}</span>
                   </div>
                 </div>
               </div>
