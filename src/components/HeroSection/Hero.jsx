@@ -216,7 +216,7 @@ const Hero = () => {
                     <span>azikeshinye@gmail.com</span>
                   </div>
                   <a
-                    href="https://wa.me/212751780853"
+                    href="https://wa.me/212751780853?text=Hello%20Simon%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%20Are%20you%20available%20for%20a%20quick%20chat%3F"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-theme-text-secondary hover:text-theme-accent-primary transition-colors"

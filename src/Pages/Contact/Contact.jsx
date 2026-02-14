@@ -45,7 +45,7 @@ const Contact = () => {
       icon: Phone,
       title: 'Phone',
       value: '+212 751-780853',
-      link: 'https://wa.me/212751780853',
+      link: 'https://wa.me/212751780853?text=Hello%20Simon%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%20Are%20you%20available%20for%20a%20quick%20chat%3F',
       description: 'Message me directly on WhatsApp',
       ariaLabel: 'Message +212 751-780853 on WhatsApp'
     },
